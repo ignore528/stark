@@ -1,11 +1,9 @@
-
-
 # ══════════════════════════════════════════════════════════════
 # ║   MuskanBot — Premium Help Strings  ✦  @MuskanBot        ║
 # ══════════════════════════════════════════════════════════════
 
 
-HELP_1 = """<b>╭━━━━━━〔 👑  ADMIN COMMANDS  〕━━━━━━╮</b>
+HELP_1 = """<b>╭━━〔 👑  ADMIN COMMANDS 〕━━╮</b>
 
 <blockquote><b>◆ Playback Controls</b>
 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
@@ -28,10 +26,10 @@ HELP_1 = """<b>╭━━━━━━〔 👑  ADMIN COMMANDS  〕━━━━━
 
 <i>❝ Add <b>c</b> before any command for channel use — e.g. <code>/cpause</code>  <code>/cskip</code> ❞</i></blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_2 = """<b>╭━━━━━━〔 🛡  AUTH USERS  〕━━━━━━╮</b>
+HELP_2 = """<b>╭━━━〔 🛡  AUTH USERS 〕━━━╮</b>
 
 <blockquote><i>❝ Grant admin powers to trusted users — without making them group admins. ❞</i>
 
@@ -46,11 +44,11 @@ HELP_2 = """<b>╭━━━━━━〔 🛡  AUTH USERS  〕━━━━━━�
 <code>/authusers</code>
   ▸  View all authorised users in this group</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_3 = """<b>╭━━━━━━〔 📢  BROADCAST  〕━━━━━━╮</b>
-<b>             ✦  Sudo Only</b>
+HELP_3 = """<b>╭━━━〔 📢  BROADCAST 〕━━━━╮</b>
+<b>          ✦  Sudo Only</b>
 
 <blockquote><i>❝ Reach every chat the bot serves — in one command. ❞</i>
 
@@ -71,11 +69,11 @@ HELP_3 = """<b>╭━━━━━━〔 📢  BROADCAST  〕━━━━━━�
 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/broadcast -user -assistant -pin Hello everyone!</code></blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_4 = """<b>╭━━━━━━〔 🚫  CHAT BLACKLIST  〕━━━━━━╮</b>
-<b>               ✦  Sudo Only</b>
+HELP_4 = """<b>╭━━〔 🚫  CHAT BLACKLIST 〕━━╮</b>
+<b>          ✦  Sudo Only</b>
 
 <blockquote><i>❝ Keep unwanted groups out — your bot, your rules. ❞</i>
 
@@ -90,11 +88,11 @@ HELP_4 = """<b>╭━━━━━━〔 🚫  CHAT BLACKLIST  〕━━━━━
 <code>/blacklistedchats</code>
   ▸  View all currently blacklisted chats</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_5 = """<b>╭━━━━━━〔 🚷  BLOCK USERS  〕━━━━━━╮</b>
-<b>             ✦  Sudo Only</b>
+HELP_5 = """<b>╭━━━〔 🚷  BLOCK USERS 〕━━━╮</b>
+<b>          ✦  Sudo Only</b>
 
 <blockquote><i>❝ Blocked users are silenced — no commands, no access. ❞</i>
 
@@ -109,10 +107,10 @@ HELP_5 = """<b>╭━━━━━━〔 🚷  BLOCK USERS  〕━━━━━━
 <code>/blockedusers</code>
   ▸  View the full blocked users list</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_6 = """<b>╭━━━━━━〔 📺  CHANNEL PLAY  〕━━━━━━╮</b>
+HELP_6 = """<b>╭━━〔 📺  CHANNEL PLAY 〕━━━╮</b>
 
 <blockquote><i>❝ Stream premium audio &amp; video directly inside your channel videochat. ❞</i>
 
@@ -130,11 +128,11 @@ HELP_6 = """<b>╭━━━━━━〔 📺  CHANNEL PLAY  〕━━━━━�
 <code>/channelplay disable</code>
   ▸  Unlink the connected channel</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_7 = """<b>╭━━━━━━〔 🔨  GLOBAL BAN  〕━━━━━━╮</b>
-<b>            ✦  Sudo Only</b>
+HELP_7 = """<b>╭━━━〔 🔨  GLOBAL BAN 〕━━━╮</b>
+<b>          ✦  Sudo Only</b>
 
 <blockquote><i>❝ Globally banned users are blocked across every chat the bot serves. ❞</i>
 
@@ -149,10 +147,10 @@ HELP_7 = """<b>╭━━━━━━〔 🔨  GLOBAL BAN  〕━━━━━━�
 <code>/gbannedusers</code>
   ▸  View all globally banned users</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_8 = """<b>╭━━━━━━〔 🔁  LOOP STREAM  〕━━━━━━╮</b>
+HELP_8 = """<b>╭━━━〔 🔁  LOOP STREAM 〕━━━╮</b>
 
 <blockquote><i>❝ Let your favourite track play on repeat — forever if you wish. ❞</i>
 
@@ -170,11 +168,11 @@ HELP_8 = """<b>╭━━━━━━〔 🔁  LOOP STREAM  〕━━━━━━
 <code>/loopqueue disable</code>
   ▸  Disable queue loop</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_9 = """<b>╭━━━━━━〔 ⚙  MAINTENANCE  〕━━━━━━╮</b>
-<b>             ✦  Sudo Only</b>
+HELP_9 = """<b>╭━━━〔 ⚙  MAINTENANCE 〕━━━╮</b>
+<b>          ✦  Sudo Only</b>
 
 <blockquote><i>❝ Keep the engine running — monitor, log, and control with ease. ❞</i>
 
@@ -191,10 +189,10 @@ HELP_9 = """<b>╭━━━━━━〔 ⚙  MAINTENANCE  〕━━━━━━�
 <code>/maintenance enable</code>   ▸  Enable maintenance mode
 <code>/maintenance disable</code>  ▸  Disable maintenance mode</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_10 = """<b>╭━━━━━━〔 🏓  PING &amp; STATS  〕━━━━━━╮</b>
+HELP_10 = """<b>╭━━〔 🏓  PING &amp; STATS 〕━━━╮</b>
 
 <blockquote><i>❝ Real-time pulse — check if the bot is alive and performing at its best. ❞</i>
 
@@ -208,10 +206,10 @@ HELP_10 = """<b>╭━━━━━━〔 🏓  PING &amp; STATS  〕━━━━
 <code>/ping</code>   ▸  Ping &amp; show system resource stats
 <code>/stats</code>  ▸  Show overall bot usage statistics</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_11 = """<b>╭━━━━━━〔 🎵  PLAY COMMANDS  〕━━━━━━╮</b>
+HELP_11 = """<b>╭━━〔 🎵  PLAY COMMANDS 〕━━╮</b>
 
 <blockquote><i>❝ Stream anything — a song name, a YouTube link, a Spotify track. Just play. ❞</i>
 
@@ -233,10 +231,10 @@ HELP_11 = """<b>╭━━━━━━〔 🎵  PLAY COMMANDS  〕━━━━━
 
 <i>❝ Add <b>c</b> prefix for channel streaming — <code>/cplay</code>  <code>/cvplay</code> ❞</i></blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_12 = """<b>╭━━━━━━〔 🎙  VC NOTIFIER  〕━━━━━━╮</b>
+HELP_12 = """<b>╭━━━〔 🎙  VC NOTIFIER 〕━━━╮</b>
 
 <blockquote><i>❝ Never miss a moment — know exactly who enters or exits the voice chat. ❞</i>
 
@@ -251,10 +249,10 @@ HELP_12 = """<b>╭━━━━━━〔 🎙  VC NOTIFIER  〕━━━━━�
 ▸  Activates on every group message when enabled
 ▸  Notification messages auto-delete after <b>10 seconds</b></blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_13 = """<b>╭━━━━━━〔 ⏩  SEEK STREAM  〕━━━━━━╮</b>
+HELP_13 = """<b>╭━━━〔 ⏩  SEEK STREAM 〕━━━╮</b>
 
 <blockquote><i>❝ Jump to any moment in the track — forward or back, in seconds. ❞</i>
 
@@ -266,10 +264,10 @@ HELP_13 = """<b>╭━━━━━━〔 ⏩  SEEK STREAM  〕━━━━━━
 <code>/seekback</code> <i>[seconds]</i>
   ▸  Seek backward to the given position</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_14 = """<b>╭━━━━━━〔 ⬇  SONG DOWNLOAD  〕━━━━━━╮</b>
+HELP_14 = """<b>╭━━〔 ⬇  SONG DOWNLOAD 〕━━╮</b>
 
 <blockquote><i>❝ Save the vibe — download any track directly from YouTube, fast. ❞</i>
 
@@ -279,11 +277,11 @@ HELP_14 = """<b>╭━━━━━━〔 ⬇  SONG DOWNLOAD  〕━━━━━�
   ▸  Download in <b>MP3</b> or <b>MP4</b> format
   ▸  File sent directly to chat — instant delivery</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_15 = """<b>╭━━━━━━〔 ⚡  SPEED CONTROL  〕━━━━━━╮</b>
-<b>              ✦  Admins Only</b>
+HELP_15 = """<b>╭━━〔 ⚡  SPEED CONTROL 〕━━╮</b>
+<b>          ✦  Admins Only</b>
 
 <blockquote><i>❝ Slow it down to savour every note, or crank it up to match your vibe. ❞</i>
 
@@ -297,4 +295,4 @@ HELP_15 = """<b>╭━━━━━━〔 ⚡  SPEED CONTROL  〕━━━━━�
 <code>/cspeed</code>    ▸  Adjust audio speed in channel
 <code>/cplayback</code> ▸  Same as /cspeed</blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
