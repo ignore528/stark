@@ -84,16 +84,16 @@ admin_38 : "» Added 1 upvote."
 admin_39 : "» Removed 1 upvote."
 admin_40 : "Upvoted."
 
-start_1 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+start_1 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━╮
 ✦  <b>{0}</b>  ✦
-╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 <blockquote>🟢  <b>Status</b>   ›  Online &amp; Ready
 ⏱  <b>Uptime</b>   ›  <code>{1}</code></blockquote>"
 
-start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━╮
 🎵  <b>MUSKAN MUSIC BOT</b>  🎵
-╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 <b>Hey {0}!</b>  Welcome aboard 🎶
 
@@ -106,9 +106,9 @@ start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━
 
 <i>Powered by</i> <b>{1}</b> — your ultimate music companion 🎧"
 
-start_3 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+start_3 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━╮
 🎵  <b>MUSKAN MUSIC IS HERE!</b>  🎵
-╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 <blockquote>Hey {0}!  Thanks for adding <b>{1}</b> to <b>{2}</b> 🎶
 
@@ -136,18 +136,18 @@ start_6 : "<b>🎵 Track Info</b>
 
 🤖 <i>Powered by {6}</i></blockquote>"
 
-help_1 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+help_1 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━╮
 🎵  <b>MUSKAN MUSIC — HELP CENTER</b>  🎵
-╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 <blockquote><i>❝ Your premium Telegram music streaming bot — built for quality, speed &amp; style. ❞</i>
 
 ◆  Pick a category below to explore commands
 ◆  All commands start with <code>/</code> prefix
 ◆  Support → <a href={0}>Join Our Chat</a></blockquote>"
-help_2 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+help_2 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━╮
 🎵  <b>MUSKAN MUSIC</b>  🎵
-╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 <blockquote><i>❝ Tap below to open the full Help Menu in your PM. ❞</i></blockquote>"
 
