@@ -91,21 +91,7 @@ start_1 : "╭━━━━━━━━━━━━━━━━━━━━━━
 <blockquote>🟢  <b>Status</b>   ›  Online &amp; Ready
 ⏱  <b>Uptime</b>   ›  <code>{1}</code></blockquote>"
 
-start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━╮
-🎵  <b>MUSKAN MUSIC BOT</b>  🎵
-╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
-
-<b>Hey {0}!</b>  Welcome aboard 🎶
-
-<blockquote><i>❝ Music is the shorthand of emotion — and I stream it all. ❞</i>
-
-◆  <b>YouTube, Spotify &amp; Apple Music</b>
-◆  <b>SoundCloud, Resso &amp; Telegram Files</b>
-◆  <b>Crystal Clear HD Audio &amp; Video</b>
-◆  <b>Queue, Loop, Speed Control &amp; more</b></blockquote>
-
-<i>Powered by</i> <b>{1}</b> — your ultimate music companion 🎧"
-
+start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━━━╮\n🎵  <b>MUSKAN MUSIC BOT</b>  🎵\n╰━━━━━━━━━━━━━━━━━━━━━━━━╯\n\n<b>Hey {0}!</b>  Welcome aboard 🎶\n\n<blockquote><i>❝ Music is the shorthand of emotion — and I stream it all. ❞</i>\n\n◆  <b>YouTube, Spotify &amp; Apple Music</b>\n◆  <b>SoundCloud, Resso &amp; Telegram Files</b>\n◆  <b>Crystal Clear HD Audio &amp; Video</b>\n◆  <b>Queue, Loop, Speed Control &amp; more</b></blockquote>\n\n<i>Powered by</i> <b>{1}</b> — your ultimate music companion 🎧"
 start_3 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━╮
 🎵  <b>MUSKAN MUSIC IS HERE!</b>  🎵
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
