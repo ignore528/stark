@@ -1,12 +1,13 @@
-# © @MuskanBot — Cinematic Dark Gold Premium Thumbnail v2
+# © @MuskanBot — Premium Music Player Card Thumbnail v3
+# Style: Frosted dark card, circular album art, progress bar, gold accents
 
 import asyncio
 import math
 import os
-import random
 import re
 import time
 from io import BytesIO
+from typing import Optional, List, Tuple
 
 from PIL import (
     Image, ImageDraw, ImageFilter, ImageEnhance, ImageFont
@@ -20,246 +21,313 @@ os.makedirs(_CACHE_DIR, exist_ok=True)
 _W, _H = 1280, 720
 
 # ── Palette ────────────────────────────────────────────────────────────
-_BLACK   = (  8,   8,  10)
-_DEEP    = ( 14,  12,  18)
-_GOLD    = (212, 175,  55)
-_GOLD_LT = (255, 220, 100)
-_AMBER   = (255, 160,  40)
-_WHITE   = (255, 255, 255)
-_SMOKE   = (200, 195, 210)
-_DIM     = (120, 115, 130)
+_BLACK    = (  8,   8,  10)
+_CARD_BG  = ( 22,  22,  30)
+_CARD_BG2 = ( 16,  16,  22)
+_GOLD     = (212, 175,  55)
+_GOLD_LT  = (255, 220, 100)
+_AMBER    = (255, 165,  40)
+_WHITE    = (255, 255, 255)
+_SMOKE    = (210, 205, 220)
+_DIM      = (130, 125, 145)
+_BAR_BG   = ( 45,  40,  55)
+_BAR_FILL = (212, 175,  55)
 
-# ── Font loader ────────────────────────────────────────────────────────
-_FONT_PATHS = {
-    True: [
-        "/home/runner/workspace/Muskan_Music/assets/fonts/DejaVuSans-Bold.ttf",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
-    ],
-    False: [
-        "/home/runner/workspace/Muskan_Music/assets/fonts/DejaVuSans.ttf",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-        "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
-    ],
-}
+# ── Font Paths (in priority order, covers Heroku Ubuntu + local dev) ───
+_BOLD_FONTS = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+    "/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
+]
+_REG_FONTS = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+    "/usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf",
+    "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
+]
+
+_font_cache: dict = {}
 
 def _font(size: int, bold: bool = True) -> ImageFont.FreeTypeFont:
-    for p in _FONT_PATHS[bold]:
+    key = (size, bold)
+    if key in _font_cache:
+        return _font_cache[key]
+    paths = _BOLD_FONTS if bold else _REG_FONTS
+    for p in paths:
         if os.path.isfile(p):
             try:
-                return ImageFont.truetype(p, size)
+                f = ImageFont.truetype(p, size)
+                _font_cache[key] = f
+                return f
             except Exception:
                 continue
-    return ImageFont.load_default()
+    # last resort: default bitmap font
+    f = ImageFont.load_default()
+    _font_cache[key] = f
+    return f
+
 
 def _strip(t: str) -> str:
     return re.sub(r"<[^>]+>", "", t or "").strip()
 
-def _text_w(draw: ImageDraw.ImageDraw, text: str, font) -> int:
+
+def _tw(draw: ImageDraw.ImageDraw, text: str, font) -> int:
     try:
         bb = draw.textbbox((0, 0), text, font=font)
         return bb[2] - bb[0]
     except Exception:
-        return len(text) * 10
+        return len(text) * (getattr(font, 'size', 10) // 2)
 
-def _text_h(draw: ImageDraw.ImageDraw, text: str, font) -> int:
+
+def _th(draw: ImageDraw.ImageDraw, text: str, font) -> int:
     try:
         bb = draw.textbbox((0, 0), text, font=font)
         return bb[3] - bb[1]
     except Exception:
-        return getattr(font, "size", 20)
+        return getattr(font, 'size', 20)
 
 
 # ═══════════════════════════════════════════════════════════════════════
-#  BACKGROUND — deep dark with warm ambient glow bottom-left
+#  BACKGROUND — dark blurred art
 # ═══════════════════════════════════════════════════════════════════════
 
-def _make_bg() -> Image.Image:
+def _make_bg(art: Optional[Image.Image]) -> Image.Image:
     bg = Image.new("RGBA", (_W, _H), (*_BLACK, 255))
-    d  = ImageDraw.Draw(bg)
-    # Subtle vertical gradient: very slightly lighter at top
-    for y in range(_H):
-        t = y / _H
-        r = int(_BLACK[0] + 8  * (1 - t))
-        g = int(_BLACK[1] + 4  * (1 - t))
-        b = int(_BLACK[2] + 14 * (1 - t))
-        d.line([(0, y), (_W, y)], fill=(r, g, b, 255))
 
-    # Warm amber radial glow — bottom-left corner
-    glow = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
-    gd   = ImageDraw.Draw(glow)
-    cx, cy = 0, _H
-    for r in range(600, 0, -6):
-        frac = r / 600
-        # Gold tint fading out
-        a  = int(28 * (1 - frac) ** 2.5)
-        rc = int(_AMBER[0] * (1 - frac * 0.6))
-        gc = int(_AMBER[1] * (1 - frac * 0.8))
-        bc = int(_AMBER[2] * (1 - frac))
-        gd.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(rc, gc, bc, a))
-    bg = Image.alpha_composite(bg, glow.filter(ImageFilter.GaussianBlur(30)))
+    if art:
+        ow, oh = art.size
+        ratio  = _W / _H
+        if ow / oh > ratio:
+            nw   = int(oh * ratio)
+            crop = art.crop(((ow - nw) // 2, 0, (ow + nw) // 2, oh))
+        else:
+            nh   = int(ow / ratio)
+            crop = art.crop((0, (oh - nh) // 2, ow, (oh + nh) // 2))
+
+        blurred = (crop.resize((_W, _H), Image.LANCZOS)
+                       .convert("RGBA")
+                       .filter(ImageFilter.GaussianBlur(28)))
+        blurred = ImageEnhance.Brightness(blurred).enhance(0.18)
+        blurred.putalpha(180)
+        bg = Image.alpha_composite(bg, blurred)
+
+    # Dark gradient overlay (top darker, bottom slightly lighter)
+    grad = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    gd   = ImageDraw.Draw(grad)
+    for y in range(_H):
+        a = int(90 * (1 - y / _H))
+        gd.line([(0, y), (_W, y)], fill=(0, 0, 0, a))
+    bg = Image.alpha_composite(bg, grad)
     return bg
 
 
 # ═══════════════════════════════════════════════════════════════════════
-#  ALBUM ART — right-side cinematic panel with gradient fade
+#  CARD — frosted dark rounded rectangle
 # ═══════════════════════════════════════════════════════════════════════
 
-def _place_art(canvas: Image.Image, art: Image.Image) -> Image.Image:
-    # Scale art to fill right panel (full height)
-    art_w = int(_H * (art.width / art.height)) if art.height > 0 else _H
-    art_r = art.resize((max(art_w, 700), _H), Image.LANCZOS).convert("RGBA")
+def _draw_card(canvas: Image.Image) -> Image.Image:
+    pad_x, pad_y = 64, 56
+    r = 36
 
-    # Crop to right 700px wide panel
-    panel_w = 700
-    aw = art_r.width
-    # Take rightmost portion
-    x_off = max(0, aw - panel_w)
-    art_r = art_r.crop((x_off, 0, x_off + panel_w, _H))
+    card = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    cd   = ImageDraw.Draw(card)
 
-    # Dim the art for cinematic feel
-    art_r = ImageEnhance.Brightness(art_r).enhance(0.72)
-    art_r = ImageEnhance.Color(art_r).enhance(1.15)
+    # Shadow layers (multiple blurred rects)
+    for i in range(8, 0, -1):
+        s = i * 6
+        a = int(80 * (i / 8))
+        cd.rounded_rectangle(
+            [pad_x - s, pad_y - s, _W - pad_x + s, _H - pad_y + s],
+            radius=r + s // 2,
+            fill=(0, 0, 0, a),
+        )
+    shadow = card.filter(ImageFilter.GaussianBlur(18))
+    canvas = Image.alpha_composite(canvas, shadow)
 
-    # Horizontal left-to-right fade mask (art becomes transparent on left edge)
-    fade = Image.new("L", (panel_w, _H), 0)
-    fd   = ImageDraw.Draw(fade)
-    fade_width = 320
-    for x in range(fade_width):
-        alpha = int(255 * (x / fade_width) ** 1.8)
-        fd.line([(x, 0), (x, _H)], fill=alpha)
-    for x in range(fade_width, panel_w):
-        fade.putpixel((x, 0) if False else (0, 0), 0)
-    # Right side solid
-    fd.rectangle([fade_width, 0, panel_w, _H], fill=255)
-    art_r.putalpha(fade)
+    # Card fill (two-tone gradient via two overlapping rects)
+    card2 = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    cd2   = ImageDraw.Draw(card2)
+    cd2.rounded_rectangle(
+        [pad_x, pad_y, _W - pad_x, _H - pad_y],
+        radius=r,
+        fill=(*_CARD_BG, 245),
+    )
+    # Subtle lighter top half
+    top_h = (_H - 2 * pad_y) // 2
+    for i in range(top_h):
+        frac = 1 - i / top_h
+        a    = int(18 * frac)
+        cd2.line(
+            [(pad_x + r, pad_y + i), (_W - pad_x - r, pad_y + i)],
+            fill=(255, 255, 255, a)
+        )
+    canvas = Image.alpha_composite(canvas, card2)
 
-    # Place at right edge
-    pos_x = _W - panel_w
-    canvas.alpha_composite(art_r, dest=(pos_x, 0))
+    # Card border (gold glow, 1px)
+    border_layer = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    bd            = ImageDraw.Draw(border_layer)
+    bd.rounded_rectangle(
+        [pad_x, pad_y, _W - pad_x, _H - pad_y],
+        radius=r,
+        outline=(*_GOLD, 80),
+        width=1,
+    )
+    canvas = Image.alpha_composite(canvas, border_layer)
+
     return canvas
 
 
 # ═══════════════════════════════════════════════════════════════════════
-#  BLURRED BG LAYER — full canvas from album art, very dimmed
+#  CIRCULAR ALBUM ART
 # ═══════════════════════════════════════════════════════════════════════
 
-def _bg_art(canvas: Image.Image, art: Image.Image) -> Image.Image:
-    # Fill entire canvas with blurred, very dark version of art
-    ratio = _W / _H
-    ow, oh = art.size
-    if ow / oh > ratio:
-        nw  = int(oh * ratio)
-        art_c = art.crop(((ow - nw) // 2, 0, (ow - nw) // 2 + nw, oh))
+def _place_circular_art(canvas: Image.Image,
+                         art: Optional[Image.Image]) -> Image.Image:
+    cx, cy = 350, _H // 2   # center of the circle
+    R      = 218             # outer radius
+
+    layer = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    ld    = ImageDraw.Draw(layer)
+
+    # Outer glow ring (gold, blurred later)
+    for i in range(20, 0, -1):
+        a = int(55 * (i / 20) ** 2)
+        ld.ellipse(
+            [cx - R - i, cy - R - i, cx + R + i, cy + R + i],
+            outline=(*_GOLD, a),
+            width=2,
+        )
+    canvas = Image.alpha_composite(canvas,
+                 layer.filter(ImageFilter.GaussianBlur(6)))
+
+    # Dark ring just inside glow
+    ring_layer = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    rd         = ImageDraw.Draw(ring_layer)
+    rd.ellipse([cx - R, cy - R, cx + R, cy + R],
+               fill=(*_CARD_BG2, 255))
+    canvas = Image.alpha_composite(canvas, ring_layer)
+
+    # Thin gold ring border
+    border_layer = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    brd          = ImageDraw.Draw(border_layer)
+    brd.ellipse([cx - R, cy - R, cx + R, cy + R],
+                outline=(*_GOLD, 200), width=3)
+    canvas = Image.alpha_composite(canvas, border_layer)
+
+    # Album art clipped to circle
+    art_r = R - 6
+    if art:
+        # Crop to square, resize
+        ow, oh = art.size
+        side   = min(ow, oh)
+        left   = (ow - side) // 2
+        top    = (oh - side) // 2
+        sq     = art.crop((left, top, left + side, top + side))
+        sq     = sq.resize((art_r * 2, art_r * 2), Image.LANCZOS).convert("RGBA")
+        sq     = ImageEnhance.Brightness(sq).enhance(0.92)
+        sq     = ImageEnhance.Color(sq).enhance(1.12)
+
+        # Circular mask
+        mask = Image.new("L", (art_r * 2, art_r * 2), 0)
+        ImageDraw.Draw(mask).ellipse([0, 0, art_r * 2, art_r * 2], fill=255)
+        sq.putalpha(mask)
+
+        art_layer = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+        art_layer.alpha_composite(sq, dest=(cx - art_r, cy - art_r))
+        canvas = Image.alpha_composite(canvas, art_layer)
     else:
-        nh  = int(ow / ratio)
-        art_c = art.crop((0, (oh - nh) // 2, ow, (oh - nh) // 2 + nh))
+        # Placeholder gradient circle
+        ph = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+        pd = ImageDraw.Draw(ph)
+        pd.ellipse([cx - art_r, cy - art_r, cx + art_r, cy + art_r],
+                   fill=(*_CARD_BG2, 255))
+        # Music note placeholder
+        pd.text((cx - 24, cy - 32), "♪", font=_font(64, bold=True),
+                fill=(*_GOLD, 140))
+        canvas = Image.alpha_composite(canvas, ph)
 
-    art_c = art_c.resize((_W, _H), Image.LANCZOS).convert("RGBA")
-    art_c = art_c.filter(ImageFilter.GaussianBlur(radius=22))
-    art_c = ImageEnhance.Brightness(art_c).enhance(0.10)
-    art_c.putalpha(Image.new("L", (_W, _H), 120))
-    return Image.alpha_composite(canvas, art_c)
+    # Small center dot (vinyl style)
+    dot_layer = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    dd        = ImageDraw.Draw(dot_layer)
+    dd.ellipse([cx - 14, cy - 14, cx + 14, cy + 14],
+               fill=(*_CARD_BG2, 255))
+    dd.ellipse([cx - 6, cy - 6, cx + 6, cy + 6],
+               fill=(*_GOLD, 220))
+    canvas = Image.alpha_composite(canvas, dot_layer)
 
-
-# ═══════════════════════════════════════════════════════════════════════
-#  VIGNETTE — darkens corners
-# ═══════════════════════════════════════════════════════════════════════
-
-def _vignette(w: int, h: int) -> Image.Image:
-    vig = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    d   = ImageDraw.Draw(vig)
-    steps = 90
-    for i in range(steps, 0, -1):
-        frac  = i / steps
-        alpha = int(200 * (1 - frac) ** 2.2)
-        margin = int(i * max(w, h) / steps * 0.8)
-        d.rectangle(
-            [margin, margin, w - margin, h - margin],
-            outline=(0, 0, 0, alpha), width=6
-        )
-    return vig.filter(ImageFilter.GaussianBlur(20))
+    return canvas
 
 
 # ═══════════════════════════════════════════════════════════════════════
-#  LEFT OVERLAY — gradient from left so text is always readable
+#  PROGRESS BAR
 # ═══════════════════════════════════════════════════════════════════════
 
-def _left_overlay(w: int, h: int) -> Image.Image:
-    overlay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    d = ImageDraw.Draw(overlay)
-    # Strong on left, fades to transparent by x=820
-    edge = 820
-    for x in range(edge):
-        frac  = x / edge
-        alpha = int(210 * (1 - frac ** 1.4))
-        d.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
-    return overlay
+def _draw_progress(draw: ImageDraw.ImageDraw,
+                   x: int, y: int, w: int,
+                   duration: str, seed: int) -> None:
+    bar_h = 5
+    r     = bar_h // 2
 
+    # Parse duration to get a fixed progress fraction
+    try:
+        parts    = duration.replace(":", " ").split()
+        nums     = [int(p) for p in parts if p.isdigit()]
+        total_s  = nums[-2] * 60 + nums[-1] if len(nums) >= 2 else int(nums[0]) if nums else 200
+    except Exception:
+        total_s = 200
+    # Pseudo-random playback position based on seed
+    progress = 0.28 + (seed % 100) / 200.0   # 28%–78% range
+    filled   = int(w * progress)
 
-# ═══════════════════════════════════════════════════════════════════════
-#  GOLD DECORATIVE LINE
-# ═══════════════════════════════════════════════════════════════════════
-
-def _gold_line(draw: ImageDraw.ImageDraw, x: int, y: int, length: int,
-               height: int = 2, alpha: int = 200) -> None:
-    # Main gold line
-    draw.rectangle([x, y, x + length, y + height],
-                   fill=(*_GOLD, alpha))
-    # Subtle bright highlight on top
-    draw.rectangle([x, y, x + length, y],
-                   fill=(*_GOLD_LT, min(255, alpha + 30)))
-
-
-# ═══════════════════════════════════════════════════════════════════════
-#  PREMIUM WAVEFORM — thin elegant bars
-# ═══════════════════════════════════════════════════════════════════════
-
-def _waveform(draw: ImageDraw.ImageDraw, x: int, y: int,
-              width: int, seed: int) -> None:
-    rng    = random.Random(seed)
-    count  = 52
-    bar_w  = 3
-    gap    = (width - count * bar_w) // count
-    max_h  = 28
-    min_h  = 4
-
-    for i in range(count):
-        bx  = x + i * (bar_w + gap)
-        # Smooth sine-ish wave pattern with random variation
-        wave = math.sin(i * 0.38) * 0.5 + 0.5
-        bh   = int(min_h + (max_h - min_h) * wave * rng.uniform(0.6, 1.0))
-        by   = y - bh
-
-        # Color: brighter gold in the center-ish bars
-        center_frac = 1 - abs(i / count - 0.5) * 2
-        r = int(_GOLD[0] + (255 - _GOLD[0]) * center_frac * 0.3)
-        g = int(_GOLD[1] + (220 - _GOLD[1]) * center_frac * 0.3)
-        b = int(_GOLD[2])
-        alpha = int(120 + 120 * center_frac)
-
+    # Background track
+    draw.rounded_rectangle(
+        [x, y, x + w, y + bar_h],
+        radius=r,
+        fill=(*_BAR_BG, 255),
+    )
+    # Filled portion (gold gradient effect: two rects)
+    if filled > 0:
         draw.rounded_rectangle(
-            [bx, by, bx + bar_w, y],
-            radius=1,
-            fill=(r, g, b, alpha),
+            [x, y, x + filled, y + bar_h],
+            radius=r,
+            fill=(*_GOLD, 240),
         )
+        # Bright highlight on filled bar
+        if filled > 8:
+            draw.rounded_rectangle(
+                [x + 2, y, x + filled - 2, y + 2],
+                radius=1,
+                fill=(*_GOLD_LT, 180),
+            )
+
+    # Playhead dot
+    ph_x = x + filled
+    ph_r = 7
+    draw.ellipse([ph_x - ph_r, y - ph_r + bar_h // 2,
+                  ph_x + ph_r, y + ph_r + bar_h // 2],
+                 fill=(*_WHITE, 255))
+    draw.ellipse([ph_x - 3, y - 3 + bar_h // 2,
+                  ph_x + 3, y + 3 + bar_h // 2],
+                 fill=(*_GOLD, 255))
 
 
 # ═══════════════════════════════════════════════════════════════════════
-#  TITLE WRAP — fits title into available width across 1–2 lines
+#  TITLE WRAP
 # ═══════════════════════════════════════════════════════════════════════
 
-def _wrap_title(draw: ImageDraw.ImageDraw, text: str, max_w: int):
-    """Returns list of (line_str, font) tuples."""
-    sizes = [68, 56, 46, 38]
-    for sz in sizes:
-        fnt    = _font(sz, bold=True)
-        words  = text.split()
-        lines  = []
-        cur    = ""
+def _wrap_title(draw: ImageDraw.ImageDraw,
+                text: str, max_w: int) -> List[Tuple[str, object]]:
+    for sz in [64, 54, 44, 36]:
+        fnt   = _font(sz, bold=True)
+        words = text.split()
+        lines: List[str] = []
+        cur   = ""
         for w in words:
             test = (cur + " " + w).strip()
-            if _text_w(draw, test, fnt) <= max_w:
+            if _tw(draw, test, fnt) <= max_w:
                 cur = test
             else:
                 if cur:
@@ -267,18 +335,17 @@ def _wrap_title(draw: ImageDraw.ImageDraw, text: str, max_w: int):
                 cur = w
         if cur:
             lines.append(cur)
-        if len(lines) <= 2 and all(_text_w(draw, l, fnt) <= max_w for l in lines):
+        if len(lines) <= 2 and all(_tw(draw, l, fnt) <= max_w for l in lines):
             return [(l, fnt) for l in lines[:2]]
-    # Fallback: truncate
-    fnt = _font(36, bold=True)
-    return [(text[:28] + ("…" if len(text) > 28 else ""), fnt)]
+    fnt = _font(34, bold=True)
+    return [(text[:30] + ("…" if len(text) > 30 else ""), fnt)]
 
 
 # ═══════════════════════════════════════════════════════════════════════
-#  NETWORK: fetch YouTube thumbnail + info
+#  NETWORK helpers
 # ═══════════════════════════════════════════════════════════════════════
 
-async def _fetch_thumbnail(videoid: str) -> Image.Image | None:
+async def _fetch_thumbnail(videoid: str) -> Optional[Image.Image]:
     try:
         import aiohttp
         urls = [
@@ -289,7 +356,9 @@ async def _fetch_thumbnail(videoid: str) -> Image.Image | None:
         async with aiohttp.ClientSession() as session:
             for url in urls:
                 try:
-                    async with session.get(url, timeout=aiohttp.ClientTimeout(total=8)) as r:
+                    async with session.get(
+                        url, timeout=aiohttp.ClientTimeout(total=8)
+                    ) as r:
                         if r.status != 200:
                             continue
                         data = await r.read()
@@ -306,36 +375,39 @@ async def _fetch_thumbnail(videoid: str) -> Image.Image | None:
 async def _fetch_video_info(videoid: str):
     try:
         from py_yt import VideosSearch
-        res  = await VideosSearch(f"https://youtu.be/{videoid}", limit=1).next()
-        item = res["result"][0]
+        res  = await VideosSearch(
+            f"https://youtu.be/{videoid}", limit=1
+        ).next()
+        item    = res["result"][0]
         title   = _strip(item.get("title", "")) or "Unknown Title"
-        dur     = item.get("duration", "") or "00:00"
+        dur     = item.get("duration", "") or "0:00"
         ch_raw  = item.get("channel", {})
-        channel = ch_raw.get("name", "YouTube") if isinstance(ch_raw, dict) else "YouTube"
+        channel = (
+            ch_raw.get("name", "YouTube")
+            if isinstance(ch_raw, dict) else "YouTube"
+        )
         return title, dur, channel
     except Exception:
-        return "Unknown Title", "00:00", "YouTube"
+        return "Unknown Title", "0:00", "YouTube"
 
 
 # ═══════════════════════════════════════════════════════════════════════
-#  MAIN — Cinematic Dark Gold Thumbnail
+#  MAIN
 # ═══════════════════════════════════════════════════════════════════════
 #
 #  Layout (1280 × 720):
-#  ┌──────────────────────────────────────────────────────────┐
-#  │  thin gold bar (top)                                     │
-#  │                                                          │
-#  │  LEFT TEXT ZONE (x: 72–740)   │  ALBUM ART (x: 580–1280)│
-#  │  ● NOW PLAYING badge           │  (cinematic, edge-bleed)│
-#  │  ● Song title (large, bold)    │                         │
-#  │  ● Gold divider                │                         │
-#  │  ● Channel name                │                         │
-#  │  ● Duration chip               │                         │
-#  │  ● Waveform bars               │                         │
-#  │  ● Muskan Music watermark      │                         │
-#  │                                                          │
-#  │  thin gold bar (bottom)                                  │
-#  └──────────────────────────────────────────────────────────┘
+#  ┌──────────────────────────────────────────────────────────────────┐
+#  │  DARK BG (blurred art)                                           │
+#  │  ┌─────────────────────────── CARD ──────────────────────────┐  │
+#  │  │  ┌───────────────┐   NOW PLAYING  ●                       │  │
+#  │  │  │               │   SONG TITLE  (large bold)             │  │
+#  │  │  │  CIRCULAR ART │   Artist / Channel Name                │  │
+#  │  │  │               │   ──────────────── (gold divider)      │  │
+#  │  │  └───────────────┘   ██████░░░░░░░  (progress bar)        │  │
+#  │  │                       0:47          3:37                  │  │
+#  │  │                       ♪ MUSKAN MUSIC                      │  │
+#  │  └───────────────────────────────────────────────────────────┘  │
+#  └──────────────────────────────────────────────────────────────────┘
 
 async def get_thumb(
     videoid:   str,
@@ -352,170 +424,142 @@ async def get_thumb(
         _fetch_thumbnail(videoid),
     )
 
-    title    = _strip(title)    or yt_title
-    duration = duration         or yt_dur
-    channel  = _strip(channel)
+    title    = _strip(title)   or yt_title
+    duration = duration        or yt_dur
+    channel  = _strip(channel) or "YouTube"
     seed     = sum(ord(c) for c in videoid) % 9999
 
-    # ── 1. Deep dark base ────────────────────────────────────────────
-    bg = _make_bg()
+    # ── 1. Dark blurred background ───────────────────────────────────
+    canvas = _make_bg(art)
 
-    # ── 2. Blurred art as full-canvas ambient fill ───────────────────
-    if art:
-        bg = _bg_art(bg, art)
+    # ── 2. Frosted card ──────────────────────────────────────────────
+    canvas = _draw_card(canvas)
 
-    # ── 3. Cinematic art panel (right side) ──────────────────────────
-    if art:
-        bg = _place_art(bg, art)
+    # ── 3. Circular album art (left side) ────────────────────────────
+    canvas = _place_circular_art(canvas, art)
 
-    # ── 4. Left overlay (darkens left so text pops) ──────────────────
-    bg = Image.alpha_composite(bg, _left_overlay(_W, _H))
+    # ── 4. Text on right side ────────────────────────────────────────
+    draw = ImageDraw.Draw(canvas)
 
-    # ── 5. Vignette ──────────────────────────────────────────────────
-    bg = Image.alpha_composite(bg, _vignette(_W, _H))
+    # Card boundaries
+    pad_x, pad_y = 64, 56
+    card_x2      = _W - pad_x
+    card_y2      = _H - pad_y
 
-    draw = ImageDraw.Draw(bg)
+    # Right text zone starts after circular art center area
+    TX   = 590          # left edge of text zone
+    TW   = card_x2 - TX - 48   # available text width
+    TY   = pad_y + 52   # top of text zone
 
-    # ── 6. Thin gold letterbox bars (top & bottom) ───────────────────
-    draw.rectangle([0, 0, _W, 3], fill=(*_GOLD, 200))
-    draw.rectangle([0, _H - 4, _W, _H - 1], fill=(*_GOLD, 160))
-    # Extra highlight line under top bar
-    draw.rectangle([0, 3, _W, 4], fill=(*_GOLD_LT, 60))
-
-    # ── 7. Text zone setup ───────────────────────────────────────────
-    TX   = 72          # left margin
-    TW   = 660         # text zone width
-    TY   = 72          # start Y
-
-    # ── 8. "NOW PLAYING" badge ───────────────────────────────────────
-    f_badge  = _font(17, bold=True)
+    # ── 4a. "NOW PLAYING" badge ──────────────────────────────────────
+    f_badge  = _font(16, bold=True)
     badge_tx = "NOW PLAYING"
-    bw       = _text_w(draw, badge_tx, f_badge) + 32
-    bh       = 30
 
-    # Badge: thin gold border, no fill
-    draw.rounded_rectangle(
-        [TX, TY, TX + bw, TY + bh],
-        radius=6,
-        outline=(*_GOLD, 220),
-        width=1,
+    # Dot indicator before badge
+    dot_r = 5
+    draw.ellipse(
+        [TX, TY + 6, TX + dot_r * 2, TY + 6 + dot_r * 2],
+        fill=(*_AMBER, 255)
     )
-    # Subtle gold tint inside
-    draw.rounded_rectangle(
-        [TX, TY, TX + bw, TY + bh],
-        radius=6,
-        fill=(*_GOLD, 18),
+    # Pulsing ring
+    draw.ellipse(
+        [TX - 3, TY + 3, TX + dot_r * 2 + 3, TY + 9 + dot_r * 2],
+        outline=(*_AMBER, 80), width=1
     )
-    # Left gold accent bar
-    draw.rectangle([TX, TY + 5, TX + 2, TY + bh - 5], fill=(*_GOLD, 255))
-    draw.text((TX + 14, TY + 7), badge_tx, font=f_badge, fill=(*_GOLD, 255))
+    bx = TX + dot_r * 2 + 12
+    bw = _tw(draw, badge_tx, f_badge) + 24
+    bh = 28
 
-    # Small play dot to the right of badge
-    dot_x = TX + bw + 14
-    draw.ellipse([dot_x, TY + 11, dot_x + 8, TY + 19],
-                 fill=(*_AMBER, 200))
+    # Badge fill + border (drawn separately to avoid Pillow compat issues)
+    badge_layer = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
+    bl          = ImageDraw.Draw(badge_layer)
+    bl.rounded_rectangle([bx, TY, bx + bw, TY + bh],
+                         radius=6, fill=(*_GOLD, 22))
+    bl.rounded_rectangle([bx, TY, bx + bw, TY + bh],
+                         radius=6, outline=(*_GOLD, 180), width=1)
+    canvas = Image.alpha_composite(canvas, badge_layer)
+    draw   = ImageDraw.Draw(canvas)  # refresh draw after composite
 
-    TY += bh + 32
+    draw.text((bx + 12, TY + 6), badge_tx, font=f_badge, fill=(*_GOLD, 235))
+    TY += bh + 28
 
-    # ── 9. Song title ────────────────────────────────────────────────
-    title_lines = _wrap_title(draw, title or "Unknown Title", TW - 20)
+    # ── 4b. Song title ───────────────────────────────────────────────
+    title_lines = _wrap_title(draw, title or "Unknown Title", TW)
     for line, fnt in title_lines:
-        # Subtle shadow
-        draw.text((TX + 2, TY + 2), line, font=fnt, fill=(0, 0, 0, 120))
-        # Main white text
-        draw.text((TX, TY), line, font=fnt, fill=(*_WHITE, 252))
-        lh  = _text_h(draw, line, fnt) + 8
-        TY += lh
-    TY += 18
+        # Shadow
+        draw.text((TX + 2, TY + 2), line, font=fnt,
+                  fill=(0, 0, 0, 100))
+        # Text
+        draw.text((TX, TY), line, font=fnt,
+                  fill=(*_WHITE, 255))
+        TY += _th(draw, line, fnt) + 10
+    TY += 14
 
-    # ── 10. Gold divider ─────────────────────────────────────────────
-    _gold_line(draw, TX, TY, TW - 60, height=1, alpha=180)
-    TY += 18
+    # ── 4c. Channel / artist name ────────────────────────────────────
+    ch_disp = channel[:38]
+    f_ch    = _font(27, bold=False)
+    draw.text((TX + 1, TY + 1), ch_disp, font=f_ch, fill=(0, 0, 0, 70))
+    draw.text((TX, TY), ch_disp, font=f_ch, fill=(*_GOLD_LT, 210))
+    TY += _th(draw, ch_disp, f_ch) + 24
 
-    # ── 11. Channel name ─────────────────────────────────────────────
-    ch_disp  = channel[:36] if channel else "YouTube"
-    f_ch     = _font(28, bold=False)
-    draw.text((TX, TY), ch_disp, font=f_ch, fill=(*_SMOKE, 210))
-    TY += _text_h(draw, ch_disp, f_ch) + 22
+    # ── 4d. Gold divider ─────────────────────────────────────────────
+    draw.rectangle([TX, TY, TX + TW - 20, TY + 1], fill=(*_GOLD, 130))
+    draw.rectangle([TX, TY + 1, TX + TW - 20, TY + 2],
+                   fill=(*_GOLD_LT, 40))
+    TY += 22
 
-    # ── 12. Duration pill ────────────────────────────────────────────
-    dur_txt = duration or "00:00"
-    f_dur   = _font(24, bold=True)
-    dw      = _text_w(draw, dur_txt, f_dur) + 36
-    dh      = 34
-    # Dark pill with gold border
-    draw.rounded_rectangle(
-        [TX, TY, TX + dw, TY + dh],
-        radius=17,
-        fill=(0, 0, 0, 100),
-    )
-    draw.rounded_rectangle(
-        [TX, TY, TX + dw, TY + dh],
-        radius=17,
-        outline=(*_GOLD, 160),
-        width=1,
-    )
-    draw.text(
-        (TX + 18, TY + 5),
-        dur_txt, font=f_dur, fill=(*_GOLD_LT, 240)
-    )
+    # ── 4e. Progress bar ─────────────────────────────────────────────
+    bar_w = TW - 20
+    _draw_progress(draw, TX, TY, bar_w, duration, seed)
+    TY += 22
 
-    # Requester next to duration
+    # Time labels below bar
+    f_time = _font(21, bold=False)
+
+    # Elapsed (fake, ~28% of total)
+    try:
+        parts   = duration.replace(":", " ").split()
+        nums    = [int(p) for p in parts if p.isdigit()]
+        total_s = nums[-2] * 60 + nums[-1] if len(nums) >= 2 else (int(nums[0]) if nums else 200)
+    except Exception:
+        total_s = 200
+    progress  = 0.28 + (seed % 100) / 200.0
+    elapsed_s = int(total_s * progress)
+    el_str    = f"{elapsed_s // 60}:{elapsed_s % 60:02d}"
+
+    draw.text((TX, TY), el_str, font=f_time, fill=(*_DIM, 200))
+    dur_w = _tw(draw, duration, f_time)
+    draw.text((TX + bar_w - dur_w, TY), duration,
+              font=f_time, fill=(*_SMOKE, 200))
+    TY += _th(draw, el_str, f_time) + 28
+
+    # ── 4f. Requester ────────────────────────────────────────────────
     req = _strip(requester)
     if req:
-        f_req  = _font(22, bold=False)
-        draw.text(
-            (TX + dw + 18, TY + 7),
-            f"▸  {req[:22]}",
-            font=f_req,
-            fill=(*_DIM, 200),
-        )
+        f_req = _font(20, bold=False)
+        req_t = f"Requested by  {req[:24]}"
+        draw.text((TX, TY), req_t, font=f_req, fill=(*_DIM, 180))
+        TY += _th(draw, req_t, f_req) + 10
 
-    TY += dh + 16
+    # ── 4g. Branding ─────────────────────────────────────────────────
+    brand   = "♪  MUSKAN MUSIC"
+    f_brand = _font(20, bold=True)
+    by      = card_y2 - 52
+    draw.text((TX + 1, by + 1), brand, font=f_brand, fill=(0, 0, 0, 90))
+    draw.text((TX, by), brand, font=f_brand, fill=(*_GOLD, 190))
 
-    # ── 13. Thin accent dot row ──────────────────────────────────────
-    for i in range(5):
-        dx = TX + i * 14
-        draw.ellipse([dx, TY + 6, dx + 5, TY + 11],
-                     fill=(*_GOLD, 60 + i * 20))
-    TY += 28
+    # Bot tag
+    f_bot = _font(18, bold=False)
+    draw.text((TX, by + 28), "@MuskanMusicBot",
+              font=f_bot, fill=(*_DIM, 130))
 
-    # ── 14. Waveform ─────────────────────────────────────────────────
-    WY = _H - 80
-    _waveform(draw, TX, WY, TW - 60, seed)
+    # ── 5. Top gold accent bar on card ───────────────────────────────
+    # Short gold line under card top edge
+    draw.rectangle([pad_x + 36, pad_y, pad_x + 36 + 80, pad_y + 2],
+                   fill=(*_GOLD, 200))
+    draw.rectangle([pad_x + 36 + 84, pad_y, pad_x + 36 + 100, pad_y + 2],
+                   fill=(*_GOLD, 80))
 
-    # ── 15. Bottom gold divider ──────────────────────────────────────
-    _gold_line(draw, TX, WY + 14, TW - 60, height=1, alpha=80)
-
-    # ── 16. Branding watermark ───────────────────────────────────────
-    brand    = "MUSKAN MUSIC"
-    f_brand  = _font(18, bold=True)
-    brand_w  = _text_w(draw, brand, f_brand)
-    bx       = TX
-    by       = _H - 48
-    # Character-spaced small caps feel (just track with letter-spacing)
-    draw.text((bx + 1, by + 1), brand, font=f_brand, fill=(0, 0, 0, 100))
-    draw.text((bx, by), brand, font=f_brand, fill=(*_GOLD, 160))
-
-    # Small gold dot separator
-    draw.ellipse([bx + brand_w + 8, by + 8,
-                  bx + brand_w + 14, by + 14],
-                 fill=(*_GOLD, 100))
-    draw.text((bx + brand_w + 20, by),
-              "Music Bot", font=_font(18, bold=False),
-              fill=(*_DIM, 120))
-
-    # ── 17. Subtle right-edge art glow outline ───────────────────────
-    if art:
-        edge_x = _W - 700
-        for i in range(12, 0, -1):
-            alpha = int(40 * (i / 12))
-            draw.line(
-                [(edge_x + i, 0), (edge_x + i, _H)],
-                fill=(*_GOLD, alpha),
-                width=1,
-            )
-
-    # ── 18. Save ─────────────────────────────────────────────────────
-    bg.convert("RGB").save(out, "JPEG", quality=96, optimize=True)
+    # ── 6. Save ──────────────────────────────────────────────────────
+    canvas.convert("RGB").save(out, "JPEG", quality=96, optimize=True)
     return out
