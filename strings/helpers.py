@@ -1,38 +1,42 @@
 
-# ======================================================================
-# ||   MuskanBot — Muskan_Music Help Strings                       ||
-# ======================================================================
+
+# ══════════════════════════════════════════════════════════════
+# ║   MuskanBot — Premium Help Strings  ✦  @MuskanBot        ║
+# ══════════════════════════════════════════════════════════════
 
 
-HELP_1 = """<b>╔══〔 ⚙ ADMIN COMMANDS 〕══╗</b>
+HELP_1 = """<b>╭━━━━━━〔 👑  ADMIN COMMANDS  〕━━━━━━╮</b>
 
-<blockquote><b>◈ Playback Controls</b>
+<blockquote><b>◆ Playback Controls</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/pause</code>    ▸  Pause the current stream
 <code>/resume</code>   ▸  Resume a paused stream
-<code>/skip</code>     ▸  Skip to next track in queue
+<code>/skip</code>     ▸  Skip to the next track
 <code>/end</code>      ▸  Clear queue &amp; stop stream
 <code>/stop</code>     ▸  Same as /end
 
-<b>◈ Panel &amp; Queue</b>
+<b>◆ Panel &amp; Queue</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/player</code>   ▸  Open interactive player panel
-<code>/queue</code>    ▸  Show queued tracks list
+<code>/queue</code>    ▸  View all queued tracks
 
-<b>◈ Bio Link Guard</b>
-<code>/biodetect on</code>   ▸  Auto-delete msgs from users with promo links in bio
-<code>/biodetect off</code>  ▸  Disable bio link detection
+<b>◆ Bio Link Guard</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+<code>/biodetect on</code>   ▸  Auto-delete promo bio links
+<code>/biodetect off</code>  ▸  Disable detection
 <code>/biodetect</code>      ▸  Check current status
 
-<b>⌖</b>  Add <b>c</b> prefix to any command for channel use
-     e.g.  <code>/cpause</code>  <code>/cresume</code>  <code>/cskip</code></blockquote>
+<i>❝ Add <b>c</b> before any command for channel use — e.g. <code>/cpause</code>  <code>/cskip</code> ❞</i></blockquote>
 
-<b>╚════════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_2 = """<b>╔══〔 ◆ AUTH USERS 〕══╗</b>
+HELP_2 = """<b>╭━━━━━━〔 🛡  AUTH USERS  〕━━━━━━╮</b>
 
-<blockquote>Auth users can use admin rights without being a group admin.
+<blockquote><i>❝ Grant admin powers to trusted users — without making them group admins. ❞</i>
 
-<b>◈ Commands</b>
+<b>◆ Commands</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/auth</code> <i>[username / user_id]</i>
   ▸  Add a user to the auth list
 
@@ -40,221 +44,257 @@ HELP_2 = """<b>╔══〔 ◆ AUTH USERS 〕══╗</b>
   ▸  Remove a user from the auth list
 
 <code>/authusers</code>
-  ▸  View all authorised users of this group</blockquote>
+  ▸  View all authorised users in this group</blockquote>
 
-<b>╚═══════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_3 = """<b>╔══〔 ✦ BROADCAST 〕══╗</b>
-<b>         ⌖  Sudo only</b>
+HELP_3 = """<b>╭━━━━━━〔 📢  BROADCAST  〕━━━━━━╮</b>
+<b>             ✦  Sudo Only</b>
 
-<blockquote><code>/broadcast</code> <i>[message / reply]</i>
-  ▸  Broadcast a message to all served chats
+<blockquote><i>❝ Reach every chat the bot serves — in one command. ❞</i>
 
-<b>◈ Broadcast Flags</b>
+<b>◆ Command</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+<code>/broadcast</code> <i>[message or reply]</i>
+  ▸  Send a broadcast to all served chats
+
+<b>◆ Broadcast Flags</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>-pin</code>        ▸  Pin the message silently
 <code>-pinloud</code>    ▸  Pin with notification
 <code>-user</code>       ▸  Send to users who started the bot
 <code>-assistant</code>  ▸  Send from assistant account
-<code>-nobot</code>      ▸  Force skip bot broadcast
+<code>-nobot</code>      ▸  Skip bot broadcast
 
-<b>◈ Example</b>
+<b>◆ Example</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/broadcast -user -assistant -pin Hello everyone!</code></blockquote>
 
-<b>╚══════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_4 = """<b>╔══〔 ⊘ CHAT BLACKLIST 〕══╗</b>
-<b>           ⌖  Sudo only</b>
+HELP_4 = """<b>╭━━━━━━〔 🚫  CHAT BLACKLIST  〕━━━━━━╮</b>
+<b>               ✦  Sudo Only</b>
 
-<blockquote>Block unwanted chats from using the bot.
+<blockquote><i>❝ Keep unwanted groups out — your bot, your rules. ❞</i>
 
-<b>◈ Commands</b>
+<b>◆ Commands</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/blacklistchat</code> <i>[chat_id]</i>
-  ▸  Blacklist a chat from using the bot
+  ▸  Block a chat from using the bot
 
 <code>/whitelistchat</code> <i>[chat_id]</i>
-  ▸  Whitelist a previously blacklisted chat
+  ▸  Re-allow a blacklisted chat
 
 <code>/blacklistedchats</code>
-  ▸  View all blacklisted chats</blockquote>
+  ▸  View all currently blacklisted chats</blockquote>
 
-<b>╚════════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_5 = """<b>╔══〔 ⊗ BLOCK USERS 〕══╗</b>
-<b>         ⌖  Sudo only</b>
+HELP_5 = """<b>╭━━━━━━〔 🚷  BLOCK USERS  〕━━━━━━╮</b>
+<b>             ✦  Sudo Only</b>
 
-<blockquote>Ignore blocked users — they cannot use any bot commands.
+<blockquote><i>❝ Blocked users are silenced — no commands, no access. ❞</i>
 
-<b>◈ Commands</b>
+<b>◆ Commands</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/block</code> <i>[username / reply]</i>
-  ▸  Block a user from the bot
+  ▸  Block a user from all bot functions
 
 <code>/unblock</code> <i>[username / reply]</i>
-  ▸  Unblock a blocked user
+  ▸  Unblock a previously blocked user
 
 <code>/blockedusers</code>
-  ▸  View all blocked users</blockquote>
+  ▸  View the full blocked users list</blockquote>
 
-<b>╚═══════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_6 = """<b>╔══〔 ◉ CHANNEL PLAY 〕══╗</b>
+HELP_6 = """<b>╭━━━━━━〔 📺  CHANNEL PLAY  〕━━━━━━╮</b>
 
-<blockquote>Stream audio or video directly in a channel videochat.
+<blockquote><i>❝ Stream premium audio &amp; video directly inside your channel videochat. ❞</i>
 
-<b>◈ Stream Commands</b>
-<code>/cplay</code>       ▸  Stream audio in channel videochat
-<code>/cvplay</code>      ▸  Stream video in channel videochat
-<code>/cplayforce</code>  ▸  Force-start audio (stops current stream)
-<code>/cvplayforce</code> ▸  Force-start video (stops current stream)
+<b>◆ Stream Commands</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+<code>/cplay</code>       ▸  Stream audio in channel VC
+<code>/cvplay</code>      ▸  Stream video in channel VC
+<code>/cplayforce</code>  ▸  Force-start audio (stops current)
+<code>/cvplayforce</code> ▸  Force-start video (stops current)
 
-<b>◈ Channel Link</b>
+<b>◆ Channel Link</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/channelplay</code> <i>[username / id]</i>
-  ▸  Link channel to group — control via group commands
+  ▸  Link a channel — control it from group commands
 <code>/channelplay disable</code>
   ▸  Unlink the connected channel</blockquote>
 
-<b>╚═════════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_7 = """<b>╔══〔 ⛒ GLOBAL BAN 〕══╗</b>
-<b>        ⌖  Sudo only</b>
+HELP_7 = """<b>╭━━━━━━〔 🔨  GLOBAL BAN  〕━━━━━━╮</b>
+<b>            ✦  Sudo Only</b>
 
-<blockquote>Globally ban users across all served chats.
+<blockquote><i>❝ Globally banned users are blocked across every chat the bot serves. ❞</i>
 
-<b>◈ Commands</b>
+<b>◆ Commands</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/gban</code> <i>[username / reply]</i>
-  ▸  Ban user from all served chats &amp; blacklist from bot
+  ▸  Globally ban a user from the bot
 
 <code>/ungban</code> <i>[username / reply]</i>
-  ▸  Lift the global ban
+  ▸  Lift the global ban from a user
 
 <code>/gbannedusers</code>
   ▸  View all globally banned users</blockquote>
 
-<b>╚══════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_8 = """<b>╔══〔 ↺ LOOP STREAM 〕══╗</b>
+HELP_8 = """<b>╭━━━━━━〔 🔁  LOOP STREAM  〕━━━━━━╮</b>
 
-<blockquote>Repeat the current stream on loop.
+<blockquote><i>❝ Let your favourite track play on repeat — forever if you wish. ❞</i>
 
-<b>◈ Commands</b>
-<code>/loop enable</code>   ▸  Enable loop mode
-<code>/loop disable</code>  ▸  Disable loop mode
-<code>/loop</code> <i>[1, 2, 3 ...]</i>
-  ▸  Loop for an exact number of times</blockquote>
+<b>◆ Commands</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+<code>/loop</code>
+  ▸  Enable loop for the current track
 
-<b>╚═══════════════════════╝</b>"""
+<code>/loop disable</code>
+  ▸  Disable loop mode
+
+<code>/loopqueue</code>
+  ▸  Loop the entire queue
+
+<code>/loopqueue disable</code>
+  ▸  Disable queue loop</blockquote>
+
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_9 = """<b>╔══〔 ⌧ MAINTENANCE 〕══╗</b>
-<b>       ⌖  Sudo only</b>
+HELP_9 = """<b>╭━━━━━━〔 ⚙  MAINTENANCE  〕━━━━━━╮</b>
+<b>             ✦  Sudo Only</b>
 
-<blockquote><b>◈ Logging</b>
+<blockquote><i>❝ Keep the engine running — monitor, log, and control with ease. ❞</i>
+
+<b>◆ Logging</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/logs</code>
   ▸  Fetch live bot logs
 
 <code>/logger enable</code>   ▸  Start activity logging
 <code>/logger disable</code>  ▸  Stop activity logging
 
-<b>◈ Maintenance Mode</b>
+<b>◆ Maintenance Mode</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/maintenance enable</code>   ▸  Enable maintenance mode
 <code>/maintenance disable</code>  ▸  Disable maintenance mode</blockquote>
 
-<b>╚══════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_10 = """<b>╔══〔 ◎ PING &amp; STATS 〕══╗</b>
+HELP_10 = """<b>╭━━━━━━〔 🏓  PING &amp; STATS  〕━━━━━━╮</b>
 
-<blockquote><b>◈ General</b>
+<blockquote><i>❝ Real-time pulse — check if the bot is alive and performing at its best. ❞</i>
+
+<b>◆ General</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/start</code>  ▸  Start the music bot
 <code>/help</code>   ▸  Open the help menu
 
-<b>◈ System Info</b>
-<code>/ping</code>   ▸  Show ping &amp; system resource stats
+<b>◆ System Info</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+<code>/ping</code>   ▸  Ping &amp; show system resource stats
 <code>/stats</code>  ▸  Show overall bot usage statistics</blockquote>
 
-<b>╚═════════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_11 = """<b>╔══〔 ▷ PLAY COMMANDS 〕══╗</b>
+HELP_11 = """<b>╭━━━━━━〔 🎵  PLAY COMMANDS  〕━━━━━━╮</b>
 
-<blockquote><b>◈ Audio Streaming</b>
+<blockquote><i>❝ Stream anything — a song name, a YouTube link, a Spotify track. Just play. ❞</i>
+
+<b>◆ Audio Streaming</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/play</code> <i>[song / url]</i>
   ▸  Stream the requested audio track
 
 <code>/playforce</code> <i>[song / url]</i>
   ▸  Force-start audio (skips current stream)
 
-<b>◈ Video Streaming</b>
+<b>◆ Video Streaming</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/vplay</code> <i>[song / url]</i>
   ▸  Stream the requested video track
 
 <code>/vplayforce</code> <i>[song / url]</i>
   ▸  Force-start video (skips current stream)
 
-<b>⌖</b>  Prefix <b>c</b> to any command for channel streaming
-     e.g.  <code>/cplay</code>  <code>/cvplay</code></blockquote>
+<i>❝ Add <b>c</b> prefix for channel streaming — <code>/cplay</code>  <code>/cvplay</code> ❞</i></blockquote>
 
-<b>╚════════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_12 = """<b>╔══〔 ⟡ VC NOTIFIER 〕══╗</b>
+HELP_12 = """<b>╭━━━━━━〔 🎙  VC NOTIFIER  〕━━━━━━╮</b>
 
-<blockquote>Get notified whenever someone joins or leaves the voice chat.
+<blockquote><i>❝ Never miss a moment — know exactly who enters or exits the voice chat. ❞</i>
 
-<b>◈ Commands</b>
-<code>/vclogger on</code>   ▸  Enable VC join/leave notifications
+<b>◆ Commands</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+<code>/vclogger on</code>   ▸  Enable VC join/leave alerts
 <code>/vclogger off</code>  ▸  Disable VC notifications
 <code>/vclogger</code>      ▸  Check current status
 
-<b>◈ Behaviour</b>
-▸  Auto-activates on every group message when enabled
+<b>◆ Behaviour</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+▸  Activates on every group message when enabled
 ▸  Notification messages auto-delete after <b>10 seconds</b></blockquote>
 
-<b>╚══════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_13 = """<b>╔══〔 ⇢ SEEK STREAM 〕══╗</b>
+HELP_13 = """<b>╭━━━━━━〔 ⏩  SEEK STREAM  〕━━━━━━╮</b>
 
-<blockquote>Jump to any position in the ongoing stream.
+<blockquote><i>❝ Jump to any moment in the track — forward or back, in seconds. ❞</i>
 
-<b>◈ Commands</b>
+<b>◆ Commands</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/seek</code> <i>[seconds]</i>
   ▸  Seek forward to the given position
 
 <code>/seekback</code> <i>[seconds]</i>
   ▸  Seek backward to the given position</blockquote>
 
-<b>╚══════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_14 = """<b>╔══〔 ⬇ SONG DOWNLOAD 〕══╗</b>
+HELP_14 = """<b>╭━━━━━━〔 ⬇  SONG DOWNLOAD  〕━━━━━━╮</b>
 
-<blockquote>Download any track directly from YouTube.
+<blockquote><i>❝ Save the vibe — download any track directly from YouTube, fast. ❞</i>
 
-<b>◈ Command</b>
+<b>◆ Command</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/song</code> <i>[song name / YouTube URL]</i>
   ▸  Download in <b>MP3</b> or <b>MP4</b> format
-  ▸  Bot sends file directly to chat</blockquote>
+  ▸  File sent directly to chat — instant delivery</blockquote>
 
-<b>╚══════════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
-HELP_15 = """<b>╔══〔 ≋ SPEED CONTROL 〕══╗</b>
-<b>         ⌖  Admins only</b>
+HELP_15 = """<b>╭━━━━━━〔 ⚡  SPEED CONTROL  〕━━━━━━╮</b>
+<b>              ✦  Admins Only</b>
 
-<blockquote>Control the playback speed of the ongoing stream.
+<blockquote><i>❝ Slow it down to savour every note, or crank it up to match your vibe. ❞</i>
 
-<b>◈ Group Playback</b>
+<b>◆ Group Playback</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/speed</code>     ▸  Adjust audio speed in group
 <code>/playback</code>  ▸  Same as /speed
 
-<b>◈ Channel Playback</b>
+<b>◆ Channel Playback</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/cspeed</code>    ▸  Adjust audio speed in channel
 <code>/cplayback</code> ▸  Same as /cspeed</blockquote>
 
-<b>╚═════════════════════════╝</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""

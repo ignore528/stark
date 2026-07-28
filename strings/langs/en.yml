@@ -84,23 +84,37 @@ admin_38 : "» Added 1 upvote."
 admin_39 : "» Removed 1 upvote."
 admin_40 : "Upvoted."
 
-start_1 : "✨ <b>{0}</b> ✨
+start_1 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+✦  <b>{0}</b>  ✦
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-<blockquote>🎵  Status  ›  Online ✅
-⏱  Uptime  ›  <code>{1}</code></blockquote>"
+<blockquote>🟢  <b>Status</b>   ›  Online &amp; Ready
+⏱  <b>Uptime</b>   ›  <code>{1}</code></blockquote>"
 
-start_2 : "🎶 <b>Hey {0} !</b>
+start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+🎵  <b>MUSKAN MUSIC BOT</b>  🎵
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-<blockquote>I'm {1} — your personal music companion 🎵
+<b>Hey {0}!</b>  Welcome aboard 🎶
 
-Ready to stream non-stop music directly in your group calls!</blockquote>"
+<blockquote><i>❝ Music is the shorthand of emotion — and I stream it all. ❞</i>
 
-start_3 : "🎶 <b>Hey {0} !</b>
+◆  <b>YouTube, Spotify &amp; Apple Music</b>
+◆  <b>SoundCloud, Resso &amp; Telegram Files</b>
+◆  <b>Crystal Clear HD Audio &amp; Video</b>
+◆  <b>Queue, Loop, Speed Control &amp; more</b></blockquote>
 
-<blockquote>{1} has joined <b>{2}</b>
+<i>Powered by</i> <b>{1}</b> — your ultimate music companion 🎧"
 
-Ready to stream non-stop music 🎵
-Use {3} to start playing!</blockquote>"
+start_3 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+🎵  <b>MUSKAN MUSIC IS HERE!</b>  🎵
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+<blockquote>Hey {0}!  Thanks for adding <b>{1}</b> to <b>{2}</b> 🎶
+
+<i>❝ Ready to fill your group with premium music vibes — non-stop. ❞</i>
+
+◆  Use {3} to start streaming now!</blockquote>"
 start_4 : "<b>⚠️ Supergroup Required</b>
 
 <blockquote>Please convert your group to a supergroup first, then add me again.
@@ -122,15 +136,20 @@ start_6 : "<b>🎵 Track Info</b>
 
 🤖 <i>Powered by {6}</i></blockquote>"
 
-help_1 : "╔══〔 🎵 MUSKAN MUSIC 〕══╗
-<b>      Commands &amp; Help Center</b>
-╚══════════════════════════════╝
+help_1 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+🎵  <b>MUSKAN MUSIC — HELP CENTER</b>  🎵
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-📌 Select a category below to explore commands.
-💬 Support : <a href={0}>Join Support Chat</a>
+<blockquote><i>❝ Your premium Telegram music streaming bot — built for quality, speed &amp; style. ❞</i>
 
-<blockquote>All commands work with <code>/</code> prefix</blockquote>"
-help_2 : "🎵 <b>Muskan Music</b> — Tap below to open the <b>Help Menu</b> in your PM."
+◆  Pick a category below to explore commands
+◆  All commands start with <code>/</code> prefix
+◆  Support → <a href={0}>Join Our Chat</a></blockquote>"
+help_2 : "╭━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+🎵  <b>MUSKAN MUSIC</b>  🎵
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+<blockquote><i>❝ Tap below to open the full Help Menu in your PM. ❞</i></blockquote>"
 
 lang_1 : "» Please choose the language which you wanna set as this group's default language :"
 lang_2 : "Language changed successfully."
