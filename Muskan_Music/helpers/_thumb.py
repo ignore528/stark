@@ -1,21 +1,19 @@
-# © @MuskanBot — OBSIDIAN VINYL Premium Thumbnail v4
+# © @MuskanBot — Ultra Premium Vinyl Split Thumbnail v5
 #
-# Concept: "Obsidian Vinyl Stage"
-#   ┌─────────────────────────────────────────────────────────────────┐
-#   │ CARD (deep obsidian, gradient gold border, corner L-accent)     │
-#   │                                                                 │
-#   │   ┌──────────────────────┐  ▶ NOW PLAYING                      │
-#   │   │  VINYL DISC          │                                      │
-#   │   │   (groove rings)     │  SONG TITLE                         │
-#   │   │  ┌──────────┐        │  (large bold white)                 │
-#   │   │  │ ALBUM ART│        │                                      │
-#   │   │  │ (circle) │        │  Artist / Channel ──── (gold)       │
-#   │   │  └──────────┘        │  ──────────── (gold divider)        │
-#   │   │       ● (center dot) │  ████████░░░ (progress bar)         │
-#   │   └──────────────────────┘   0:47              3:37            │
-#   │                                                                 │
-#   │  (vertical freq bars on card left edge, subtle)   ♪ MUSKAN  ↗  │
-#   └─────────────────────────────────────────────────────────────────┘
+# Concept: "Ultra Premium Vinyl Split"
+#   ┌──────────────────────────────────────────────────────────────────────┐
+#   │  LEFT HALF: Full album art (vivid) fading into dark                 │
+#   │    └── Floating VINYL DISC with album art in center, gold rings     │
+#   │  RIGHT HALF: Dark glass card                                        │
+#   │    ▶ NOW PLAYING badge  (gold dot)                                  │
+#   │    Song Title (large bold white)                                    │
+#   │    Channel / Artist  (smoke)                                        │
+#   │    Views                                                            │
+#   │    ──── gold divider (fading)                                       │
+#   │    ████████░░░ progress bar  0:00 ── total                          │
+#   │    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  eq bars (gold)                            │
+#   │    ♪  MUSKAN MUSIC  (brand pill, bottom-right)                      │
+#   └──────────────────────────────────────────────────────────────────────┘
 
 import asyncio
 import math
@@ -23,50 +21,45 @@ import os
 import re
 import time
 from io import BytesIO
-from typing import Optional, List, Tuple
+from typing import Optional, Tuple
 
 from PIL import (
     Image, ImageDraw, ImageFilter, ImageEnhance, ImageFont
 )
 
-# ── Cache ─────────────────────────────────────────────────────────────
+# ── Cache ──────────────────────────────────────────────────────────────────────
 _CACHE_DIR = "/tmp/muskan_thumbs"
 os.makedirs(_CACHE_DIR, exist_ok=True)
 
-# ── Canvas ────────────────────────────────────────────────────────────
+# ── Canvas ─────────────────────────────────────────────────────────────────────
 _W, _H = 1280, 720
 
-# ── Palette ───────────────────────────────────────────────────────────
-_BG       = (  6,   6,   9)
-_CARD     = ( 16,  15,  22)
-_CARD2    = ( 12,  11,  18)   # darker variant for depth
-_VINYL    = ( 10,   9,  14)   # vinyl disc base
-_GROOVE   = ( 28,  26,  36)   # vinyl groove ring color
-_GOLD     = (212, 175,  55)
-_GOLD_LT  = (255, 220, 100)
-_GOLD_DIM = (140, 110,  25)
-_AMBER    = (255, 158,  30)
-_WHITE    = (255, 255, 255)
-_SMOKE    = (210, 205, 222)
-_DIM      = (120, 115, 138)
-_STEEL    = ( 80,  78,  95)
+# ── Palette ────────────────────────────────────────────────────────────────────
+_BG      = (  5,   3,  12)
+_CARD    = ( 12,   8,  24)
+_CARD2   = (  7,   5,  17)
+_VINYL   = (  7,   5,  17)
+_GROOVE  = ( 40,  35,  60)
+_GOLD    = (212, 175,  55)
+_GOLD_LT = (255, 235, 120)
+_GOLD_DM = (150, 120,  35)
+_AMBER   = (255, 180,  50)
+_WHITE   = (255, 255, 255)
+_SMOKE   = (198, 192, 220)
+_DIM     = (155, 150, 180)
+_STEEL   = (100,  90, 140)
 
-# ── Card geometry ─────────────────────────────────────────────────────
-_CX1, _CY1 = 50, 48       # card top-left
-_CX2, _CY2 = _W - 50, _H - 48  # card bottom-right
-_CRAD = 32                 # card corner radius
+# ── Vinyl geometry ─────────────────────────────────────────────────────────────
+_VCX = 325
+_VCY = 362
+_VR  = 255
+_AR  = 154
 
-# ── Vinyl / art geometry ──────────────────────────────────────────────
-_VCX  = 310                # vinyl center X
-_VCY  = _H // 2 + 8       # vinyl center Y (slightly below center)
-_VR   = 235                # vinyl outer radius
-_AR   = 152                # album art circle radius
+# ── Text zone ──────────────────────────────────────────────────────────────────
+_TX    = 682
+_BAR_W = 540
 
-# ── Text zone ─────────────────────────────────────────────────────────
-_TX   = 596                # text left edge
-_TW   = _CX2 - _TX - 52   # text width
-
-# ── Font paths (Heroku Ubuntu + common Linux) ─────────────────────────
+# ── Font paths ─────────────────────────────────────────────────────────────────
 _BOLD_FONTS = [
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
@@ -123,9 +116,9 @@ def _th(draw: ImageDraw.ImageDraw, text: str, font) -> int:
         return max(getattr(font, 'size', 20), 12)
 
 
-# ═══════════════════════════════════════════════════════════════════════
-#  LAYER HELPERS — always use alpha_composite to avoid banding
-# ═══════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+#  LAYER HELPERS
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def _new_layer() -> Tuple[Image.Image, ImageDraw.ImageDraw]:
     img = Image.new("RGBA", (_W, _H), (0, 0, 0, 0))
@@ -136,287 +129,194 @@ def _merge(base: Image.Image, layer: Image.Image) -> Image.Image:
     return Image.alpha_composite(base, layer)
 
 
-# ═══════════════════════════════════════════════════════════════════════
-#  STEP 1: BACKGROUND
-# ═══════════════════════════════════════════════════════════════════════
+def _sq_crop(img: Image.Image) -> Image.Image:
+    w, h = img.size
+    s = min(w, h)
+    return img.crop(((w - s) // 2, (h - s) // 2, (w + s) // 2, (h + s) // 2))
+
+
+def _circle_img(img: Image.Image, size: int) -> Image.Image:
+    img = img.resize((size, size), Image.LANCZOS).convert("RGBA")
+    m   = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(m).ellipse([0, 0, size, size], fill=255)
+    img.putalpha(m)
+    return img
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  STEP 1 — BACKGROUND (blurred art + dark overlay)
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def _make_bg(art: Optional[Image.Image]) -> Image.Image:
     canvas = Image.new("RGBA", (_W, _H), (*_BG, 255))
-
     if art:
-        # Blurred art fill — very dark
-        ow, oh = art.size
-        ratio  = _W / _H
-        if ow / oh > ratio:
-            nw   = int(oh * ratio)
-            crop = art.crop(((ow - nw) // 2, 0, (ow + nw) // 2, oh))
-        else:
-            nh   = int(ow / ratio)
-            crop = art.crop((0, (oh - nh) // 2, ow, (oh + nh) // 2))
-        blurred = (crop.resize((_W, _H), Image.LANCZOS)
-                       .convert("RGBA")
-                       .filter(ImageFilter.GaussianBlur(32)))
-        blurred = ImageEnhance.Brightness(blurred).enhance(0.09)
-        # Multiply alpha down
-        r, g, b, a = blurred.split()
-        a = a.point(lambda v: int(v * 0.65))
-        blurred = Image.merge("RGBA", (r, g, b, a))
-        canvas = Image.alpha_composite(canvas, blurred)
-
-    # Subtle radial amber glow behind vinyl position
-    glow, gd = _new_layer()
-    for rad in range(420, 0, -5):
-        frac = rad / 420
-        a    = int(22 * (1 - frac) ** 2.8)
-        rc   = int(_AMBER[0] * (1 - frac * 0.5))
-        gc   = int(_AMBER[1] * (1 - frac * 0.82))
-        bc   = int(8  * (1 - frac))
-        gd.ellipse(
-            [_VCX - rad, _VCY - rad, _VCX + rad, _VCY + rad],
-            fill=(rc, gc, bc, a)
-        )
-    canvas = _merge(canvas, glow.filter(ImageFilter.GaussianBlur(18)))
+        bg2 = art.resize((_W, _H), Image.LANCZOS).convert("RGBA")
+        bg2 = ImageEnhance.Brightness(bg2).enhance(0.28)
+        bg2 = bg2.filter(ImageFilter.GaussianBlur(50))
+        canvas = Image.alpha_composite(canvas, bg2)
+    dark, dd = _new_layer()
+    dd.rectangle([0, 0, _W, _H], fill=(5, 3, 12, 208))
+    canvas = _merge(canvas, dark)
     return canvas
 
 
-# ═══════════════════════════════════════════════════════════════════════
-#  STEP 2: CARD
-# ═══════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+#  STEP 2 — LEFT ART PANEL with fade
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def _draw_left_panel(canvas: Image.Image, art: Optional[Image.Image]) -> Image.Image:
+    if not art:
+        return canvas
+    left = art.resize((660, _H), Image.LANCZOS).convert("RGBA")
+    canvas.alpha_composite(left, (0, 0))
+    fade, fd = _new_layer()
+    for x in range(660):
+        a = int(255 * (x / 660) ** 1.2)
+        fd.line([(x, 0), (x, _H)], fill=(5, 3, 12, a))
+    return _merge(canvas, fade)
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  STEP 3 — VINYL DISC (floating over left art)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def _draw_vinyl(canvas: Image.Image, art: Optional[Image.Image]) -> Image.Image:
+    # Vinyl drop shadow
+    glow, _ = _new_layer()
+    for r in range(_VR + 40, _VR - 12, -3):
+        frac = (r - (_VR - 12)) / 52
+        a    = int(22 * frac ** 2)
+        ImageDraw.Draw(glow).ellipse(
+            [_VCX - r, _VCY - r, _VCX + r, _VCY + r], fill=(0, 0, 0, a)
+        )
+    canvas = _merge(canvas, glow.filter(ImageFilter.GaussianBlur(28)))
+
+    # Disc base + grooves
+    disc, dd = _new_layer()
+    dd.ellipse([_VCX - _VR, _VCY - _VR, _VCX + _VR, _VCY + _VR], fill=(*_VINYL, 248))
+    for r in range(_VR - 10, 115, -7):
+        dd.ellipse([_VCX - r, _VCY - r, _VCX + r, _VCY + r],
+                   outline=(*_GROOVE, 195), width=1)
+    # Highlight arc (top-left)
+    for deg in range(208, 312):
+        ang  = math.radians(deg)
+        x1   = int(_VCX + (_VR - 4) * math.cos(ang))
+        y1   = int(_VCY + (_VR - 4) * math.sin(ang))
+        x2   = int(_VCX + (_VR - 1) * math.cos(ang))
+        y2   = int(_VCY + (_VR - 1) * math.sin(ang))
+        a    = int(62 * math.sin(math.radians((deg - 208) * 1.8)))
+        if 0 < a < 256:
+            dd.line([(x1, y1), (x2, y2)], fill=(255, 255, 255, a), width=1)
+    dd.ellipse([_VCX - _VR, _VCY - _VR, _VCX + _VR, _VCY + _VR],
+               outline=(*_GOLD, 90), width=2)
+    canvas = _merge(canvas, disc)
+
+    # Art circle in vinyl center
+    if art:
+        ar_sq = _sq_crop(art)
+        ac    = _circle_img(ar_sq, _AR * 2)
+        # Warm glow behind art
+        aglow, _ = _new_layer()
+        for r2 in range(_AR + 20, _AR - 5, -3):
+            frac = (r2 - (_AR - 5)) / 25
+            a    = int(28 * frac ** 2)
+            ImageDraw.Draw(aglow).ellipse(
+                [_VCX - r2, _VCY - r2, _VCX + r2, _VCY + r2], fill=(*_AMBER, a)
+            )
+        canvas = _merge(canvas, aglow.filter(ImageFilter.GaussianBlur(5)))
+        canvas.alpha_composite(ac, (_VCX - _AR, _VCY - _AR))
+    else:
+        al2, ad = _new_layer()
+        ad.ellipse([_VCX - _AR, _VCY - _AR, _VCX + _AR, _VCY + _AR],
+                   fill=(*_CARD2, 255))
+        ad.text((_VCX - 22, _VCY - 30), "♪",
+                font=_font(58, bold=True), fill=(*_GOLD, 130))
+        canvas = _merge(canvas, al2)
+
+    # Gold ring + outer shimmer
+    rl, rd = _new_layer()
+    rd.ellipse([_VCX - _AR - 2, _VCY - _AR - 2, _VCX + _AR + 2, _VCY + _AR + 2],
+               outline=(*_GOLD, 235), width=3)
+    rd.ellipse([_VCX - _AR - 8, _VCY - _AR - 8, _VCX + _AR + 8, _VCY + _AR + 8],
+               outline=(*_GOLD, 60), width=2)
+    canvas = _merge(canvas, rl)
+
+    # Spindle
+    sl, sd = _new_layer()
+    sd.ellipse([_VCX - 14, _VCY - 14, _VCX + 14, _VCY + 14], fill=(*_CARD2, 255))
+    sd.ellipse([_VCX - 7,  _VCY - 7,  _VCX + 7,  _VCY + 7],  fill=(*_GOLD, 228))
+    sd.ellipse([_VCX - 3,  _VCY - 3,  _VCX + 3,  _VCY + 3],  fill=(*_GOLD_LT, 248))
+    canvas = _merge(canvas, sl)
+
+    return canvas
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+#  STEP 4 — RIGHT GLASS CARD
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def _draw_card(canvas: Image.Image) -> Image.Image:
-    # Deep shadow
-    for i in range(10, 0, -1):
-        sh, sd = _new_layer()
-        s      = i * 5
-        a      = int(60 * (i / 10))
-        sd.rounded_rectangle(
-            [_CX1 - s, _CY1 - s, _CX2 + s, _CY2 + s],
-            radius=_CRAD + s // 2,
-            fill=(0, 0, 0, a),
+    # Outer gold card glow
+    glow, gd = _new_layer()
+    for i in range(12, 0, -1):
+        a = int(18 * (i / 12) ** 2)
+        gd.rounded_rectangle(
+            [642 - i, 72 - i, 1234 + i, 648 + i],
+            radius=32 + i // 2, fill=(*_GOLD, a)
         )
-        canvas = _merge(canvas, sh.filter(ImageFilter.GaussianBlur(12)))
+    canvas = _merge(canvas, glow.filter(ImageFilter.GaussianBlur(6)))
 
-    # Card fill — solid dark
-    fill_l, fd = _new_layer()
-    fd.rounded_rectangle(
-        [_CX1, _CY1, _CX2, _CY2],
-        radius=_CRAD,
-        fill=(*_CARD, 250),
-    )
-    canvas = _merge(canvas, fill_l)
+    # Card fill
+    cl, cd = _new_layer()
+    cd.rounded_rectangle([645, 75, 1232, 645], radius=32, fill=(*_CARD, 228))
 
-    # Subtle top-left light sheen (very slight, like a light source from top-left)
+    # Gold border top + left (fading)
+    for i in range(587):
+        a = int(200 * (1 - i / 587) ** 0.55)
+        cd.point((645 + i, 75), fill=(*_GOLD, a))
+    for i in range(570):
+        a = int(180 * (1 - i / 570) ** 0.6)
+        cd.point((645, 75 + i), fill=(*_GOLD, a))
+    # Faint steel bottom + right
+    for i in range(587):
+        a = int(28 * (i / 587) ** 1.5)
+        cd.point((645 + i, 645), fill=(*_STEEL, a))
+    for i in range(570):
+        a = int(22 * (i / 570) ** 1.5)
+        cd.point((1232, 75 + i), fill=(*_STEEL, a))
+    canvas = _merge(canvas, cl)
+
+    # Top sheen
     sheen, sd = _new_layer()
-    for i in range(240):
-        frac = 1 - i / 240
-        a    = int(14 * frac ** 2.2)
+    for i in range(220):
+        frac = 1 - i / 220
+        a    = int(12 * frac ** 2.2)
         sd.line(
-            [(_CX1 + _CRAD, _CY1 + i), (_CX1 + _CRAD + int(((_CX2 - _CX1) * 0.55) * (1 - i / 240)), _CY1 + i)],
+            [(648, 78 + i), (648 + int(580 * (1 - i / 220)), 78 + i)],
             fill=(255, 255, 255, a)
         )
     canvas = _merge(canvas, sheen)
 
-    # Gradient border: gold top+left edges → invisible bottom+right
-    # Top edge
-    border_top, bt = _new_layer()
-    w_card = _CX2 - _CX1
-    for x in range(w_card):
-        frac = 1 - x / w_card
-        a    = int(170 * frac ** 0.6)
-        bt.line(
-            [(_CX1 + x, _CY1), (_CX1 + x, _CY1 + 1)],
-            fill=(*_GOLD, a)
-        )
-    canvas = _merge(canvas, border_top)
-
-    # Left edge
-    border_left, bl = _new_layer()
-    h_card = _CY2 - _CY1
-    for y in range(h_card):
-        frac = 1 - y / h_card
-        a    = int(150 * frac ** 0.7)
-        bl.line(
-            [(_CX1, _CY1 + y), (_CX1 + 1, _CY1 + y)],
-            fill=(*_GOLD, a)
-        )
-    canvas = _merge(canvas, border_left)
-
-    # Bottom + right — very faint steel
-    border_br, bb = _new_layer()
-    h_card = _CY2 - _CY1
-    w_card = _CX2 - _CX1
-    for y in range(h_card):
-        frac = y / h_card
-        a    = int(30 * frac ** 1.5)
-        bb.line(
-            [(_CX2 - 1, _CY1 + y), (_CX2, _CY1 + y)],
-            fill=(*_STEEL, a)
-        )
-    for x in range(w_card):
-        frac = x / w_card
-        a    = int(25 * frac ** 1.5)
-        bb.line(
-            [(_CX1 + x, _CY2 - 1), (_CX1 + x, _CY2)],
-            fill=(*_STEEL, a)
-        )
-    canvas = _merge(canvas, border_br)
-
-    # Top-left corner L-accent (gold, 3 px wide, ~70px long)
-    accent, ad = _new_layer()
-    ad.rectangle([_CX1 + 2, _CY1 + 2, _CX1 + 70, _CY1 + 3],
-                 fill=(*_GOLD, 230))
-    ad.rectangle([_CX1 + 2, _CY1 + 2, _CX1 + 3, _CY1 + 50],
-                 fill=(*_GOLD, 230))
-    # Tiny highlight
-    ad.rectangle([_CX1 + 2, _CY1 + 2, _CX1 + 70, _CY1 + 2],
-                 fill=(*_GOLD_LT, 120))
-    canvas = _merge(canvas, accent)
-
-    # Bottom-right corner L-accent (dimmer)
-    accent2, ad2 = _new_layer()
-    ad2.rectangle([_CX2 - 70, _CY2 - 3, _CX2 - 2, _CY2 - 2],
-                  fill=(*_GOLD_DIM, 100))
-    ad2.rectangle([_CX2 - 3, _CY2 - 50, _CX2 - 2, _CY2 - 2],
-                  fill=(*_GOLD_DIM, 100))
-    canvas = _merge(canvas, accent2)
+    # Corner L-accents
+    acc, ad = _new_layer()
+    ad.rectangle([645, 75, 720, 78],  fill=(*_GOLD, 210))
+    ad.rectangle([645, 75, 648, 140], fill=(*_GOLD, 210))
+    ad.rectangle([645, 75, 722, 76],  fill=(*_GOLD_LT, 120))
+    ad.rectangle([1162, 642, 1232, 645], fill=(*_GOLD_DM, 100))
+    ad.rectangle([1229, 580, 1232, 645], fill=(*_GOLD_DM, 100))
+    canvas = _merge(canvas, acc)
 
     return canvas
 
 
-# ═══════════════════════════════════════════════════════════════════════
-#  STEP 3: VINYL DISC + ALBUM ART
-# ═══════════════════════════════════════════════════════════════════════
-
-def _draw_vinyl(canvas: Image.Image,
-                art: Optional[Image.Image]) -> Image.Image:
-    # Outer glow (gold halo behind disc)
-    glow, gd = _new_layer()
-    for r in range(_VR + 40, _VR - 10, -2):
-        frac = (r - (_VR - 10)) / 50
-        a    = int(40 * frac ** 2)
-        gd.ellipse(
-            [_VCX - r, _VCY - r, _VCX + r, _VCY + r],
-            outline=(*_GOLD, a), width=2
-        )
-    canvas = _merge(canvas, glow.filter(ImageFilter.GaussianBlur(8)))
-
-    # Vinyl disc base
-    disc, dd = _new_layer()
-    dd.ellipse(
-        [_VCX - _VR, _VCY - _VR, _VCX + _VR, _VCY + _VR],
-        fill=(*_VINYL, 255)
-    )
-
-    # Groove rings — many thin concentric circles
-    groove_step = 6
-    r = _AR + 20
-    while r < _VR - 4:
-        dd.ellipse(
-            [_VCX - r, _VCY - r, _VCX + r, _VCY + r],
-            outline=(*_GROOVE, 255), width=1
-        )
-        r += groove_step
-
-    # Highlight arc (top-left quarter, simulates light hitting vinyl)
-    # Draw a thin white arc manually using line segments
-    for angle_deg in range(210, 310):
-        angle = math.radians(angle_deg)
-        rx1   = int(_VCX + (_VR - 3) * math.cos(angle))
-        ry1   = int(_VCY + (_VR - 3) * math.sin(angle))
-        rx2   = int(_VCX + (_VR - 1) * math.cos(angle))
-        ry2   = int(_VCY + (_VR - 1) * math.sin(angle))
-        a     = int(55 * math.sin(math.radians(angle_deg - 210) * 1.8))
-        if 0 <= a <= 255:
-            dd.line([(rx1, ry1), (rx2, ry2)],
-                    fill=(255, 255, 255, a), width=1)
-
-    # Outer thin gold ring
-    dd.ellipse(
-        [_VCX - _VR, _VCY - _VR, _VCX + _VR, _VCY + _VR],
-        outline=(*_GOLD, 120), width=2
-    )
-    canvas = _merge(canvas, disc)
-
-    # Album art circle
-    art_l, _ = _new_layer()
-    if art:
-        ow, oh = art.size
-        side   = min(ow, oh)
-        sq     = art.crop(((ow - side) // 2, (oh - side) // 2,
-                            (ow + side) // 2, (oh + side) // 2))
-        dim    = _AR * 2
-        sq     = sq.resize((dim, dim), Image.LANCZOS).convert("RGBA")
-        sq     = ImageEnhance.Brightness(sq).enhance(0.88)
-        sq     = ImageEnhance.Color(sq).enhance(1.18)
-
-        # Circular clip
-        mask = Image.new("L", (dim, dim), 0)
-        ImageDraw.Draw(mask).ellipse([0, 0, dim, dim], fill=255)
-        sq.putalpha(mask)
-        art_l.alpha_composite(sq, dest=(_VCX - _AR, _VCY - _AR))
-    else:
-        ad = ImageDraw.Draw(art_l)
-        ad.ellipse(
-            [_VCX - _AR, _VCY - _AR, _VCX + _AR, _VCY + _AR],
-            fill=(*_CARD2, 255)
-        )
-        ad.text((_VCX - 22, _VCY - 30), "♪",
-                font=_font(58, bold=True), fill=(*_GOLD, 130))
-    canvas = _merge(canvas, art_l)
-
-    # Gold ring around art
-    ring_l, rd = _new_layer()
-    rd.ellipse(
-        [_VCX - _AR - 1, _VCY - _AR - 1,
-         _VCX + _AR + 1, _VCY + _AR + 1],
-        outline=(*_GOLD, 200), width=3
-    )
-    canvas = _merge(canvas, ring_l)
-
-    # Inner glow on art edge (soft warm light)
-    iglow, ig = _new_layer()
-    for i in range(12, 0, -1):
-        a = int(28 * (i / 12) ** 2)
-        ig.ellipse(
-            [_VCX - _AR + i, _VCY - _AR + i,
-             _VCX + _AR - i, _VCY + _AR - i],
-            outline=(*_AMBER, a), width=2
-        )
-    canvas = _merge(canvas, iglow.filter(ImageFilter.GaussianBlur(3)))
-
-    # Center spindle hole
-    center_l, cd = _new_layer()
-    cd.ellipse([_VCX - 16, _VCY - 16, _VCX + 16, _VCY + 16],
-               fill=(*_CARD2, 255))
-    cd.ellipse([_VCX - 7,  _VCY - 7,  _VCX + 7,  _VCY + 7],
-               fill=(*_GOLD, 200))
-    cd.ellipse([_VCX - 3,  _VCY - 3,  _VCX + 3,  _VCY + 3],
-               fill=(*_GOLD_LT, 240))
-    canvas = _merge(canvas, center_l)
-
-    # Thin vertical separator line between vinyl section and text
-    sep, sd = _new_layer()
-    sep_x   = _TX - 28
-    for y in range(_CY1 + 60, _CY2 - 60):
-        frac = 1 - abs(y - _H / 2) / (_H / 2 - 60)
-        a    = int(55 * frac ** 1.5)
-        sd.point((sep_x, y), fill=(*_GOLD, a))
-    canvas = _merge(canvas, sep)
-
-    return canvas
-
-
-# ═══════════════════════════════════════════════════════════════════════
-#  STEP 4: PROGRESS BAR
-# ═══════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+#  STEP 5 — PROGRESS BAR
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def _draw_progress(
-    canvas: Image.Image,
-    draw:   ImageDraw.ImageDraw,
-    x: int, y: int, w: int,
-    duration: str, seed: int,
-) -> Tuple[int, int]:
-    """Draws progress bar; returns (elapsed_str, total_str)."""
+    canvas: Image.Image, draw: ImageDraw.ImageDraw,
+    x: int, y: int, w: int, duration: str, seed: int,
+) -> Tuple[str, str]:
     try:
         parts   = [p for p in re.split(r"[:\s]", duration) if p.isdigit()]
         total_s = int(parts[-2]) * 60 + int(parts[-1]) if len(parts) >= 2 else int(parts[0]) if parts else 210
@@ -426,67 +326,47 @@ def _draw_progress(
     progress  = 0.26 + (seed % 100) / 190.0
     elapsed_s = int(total_s * progress)
     filled    = int(w * progress)
-
-    bar_h = 4
-    bar_r = 2
+    bar_h, bar_r = 8, 4
 
     # Track
     track, td = _new_layer()
     ImageDraw.Draw(track).rounded_rectangle(
-        [x, y, x + w, y + bar_h],
-        radius=bar_r, fill=(50, 46, 62, 255)
+        [x, y, x + w, y + bar_h], radius=bar_r, fill=(48, 40, 68, 200)
     )
     canvas = _merge(canvas, track)
 
-    # Filled — gold with brightness gradient (brighter on right tip)
+    # Fill (gold)
     if filled > bar_r * 2:
         fill_l, fl = _new_layer()
-        fl.rounded_rectangle(
-            [x, y, x + filled, y + bar_h],
-            radius=bar_r, fill=(*_GOLD, 250)
-        )
-        # Bright highlight line on top of fill
+        fl.rounded_rectangle([x, y, x + filled, y + bar_h],
+                              radius=bar_r, fill=(*_GOLD, 252))
         if filled > 10:
-            fl.rounded_rectangle(
-                [x + 2, y, x + filled - 2, y + 1],
-                radius=1, fill=(*_GOLD_LT, 160)
-            )
+            fl.rounded_rectangle([x + 2, y, x + filled - 2, y + 1],
+                                  radius=1, fill=(*_GOLD_LT, 160))
         canvas = _merge(canvas, fill_l)
 
     # Playhead
     ph_x = x + filled
-    ph_r = 8
-    ph_l, pd = _new_layer()
-    pd.ellipse(
-        [ph_x - ph_r, y - ph_r + bar_h // 2,
-         ph_x + ph_r, y + ph_r + bar_h // 2],
-        fill=(*_WHITE, 255)
-    )
-    # Gold core
-    pd.ellipse(
-        [ph_x - 4, y - 4 + bar_h // 2,
-         ph_x + 4, y + 4 + bar_h // 2],
-        fill=(*_GOLD, 255)
-    )
-    canvas = _merge(canvas, ph_l)
-    draw   = ImageDraw.Draw(canvas)   # refresh
+    ph, pd = _new_layer()
+    pd.ellipse([ph_x - 11, y - 7,  ph_x + 11, y + bar_h + 7], fill=(*_WHITE, 255))
+    pd.ellipse([ph_x - 5,  y - 1,  ph_x + 5,  y + bar_h + 1], fill=(*_GOLD, 255))
+    canvas = _merge(canvas, ph)
+    draw   = ImageDraw.Draw(canvas)
 
     el_str  = f"{elapsed_s // 60}:{elapsed_s % 60:02d}"
     tot_str = duration or "0:00"
     return el_str, tot_str
 
 
-# ═══════════════════════════════════════════════════════════════════════
-#  STEP 5: TITLE WRAP
-# ═══════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+#  STEP 6 — TITLE WRAP
+# ═══════════════════════════════════════════════════════════════════════════════
 
-def _wrap_title(
-    draw: ImageDraw.ImageDraw, text: str, max_w: int
-) -> List[Tuple[str, object]]:
-    for sz in [62, 52, 42, 34]:
+def _wrap_title(draw: ImageDraw.ImageDraw, text: str, max_w: int):
+    for sz in [68, 56, 46, 36]:
         fnt   = _font(sz, bold=True)
         words = text.split()
-        lines: List[str] = []
+        lines = []
         cur   = ""
         for w in words:
             test = (cur + " " + w).strip()
@@ -498,15 +378,15 @@ def _wrap_title(
                 cur = w
         if cur:
             lines.append(cur)
-        if len(lines) <= 2 and all(_tw(draw, l, fnt) <= max_w for l in lines):
-            return [(l, fnt) for l in lines[:2]]
-    fnt = _font(32, bold=True)
+        if len(lines) <= 2 and all(_tw(draw, ln, fnt) <= max_w for ln in lines):
+            return [(ln, fnt) for ln in lines[:2]]
+    fnt = _font(34, bold=True)
     return [(text[:30] + ("…" if len(text) > 30 else ""), fnt)]
 
 
-# ═══════════════════════════════════════════════════════════════════════
-#  NETWORK
-# ═══════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+#  NETWORK HELPERS
+# ═══════════════════════════════════════════════════════════════════════════════
 
 async def _fetch_thumbnail(videoid: str) -> Optional[Image.Image]:
     try:
@@ -545,9 +425,9 @@ async def _fetch_video_info(videoid: str):
         return "Unknown Title", "0:00", "YouTube"
 
 
-# ═══════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
 #  MAIN COMPOSER
-# ═══════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
 
 async def get_thumb(
     videoid:   str,
@@ -564,126 +444,102 @@ async def get_thumb(
         _fetch_thumbnail(videoid),
     )
 
-    title    = _strip(title)   or yt_title
-    duration = duration        or yt_dur
+    title    = _strip(title)  or yt_title
+    duration = duration       or yt_dur
     channel  = _strip(channel) or "YouTube"
     seed     = sum(ord(c) for c in videoid) % 9999
 
-    # ── Compose layers ────────────────────────────────────────────────
+    # ── Compose ───────────────────────────────────────────────────────────────
     canvas = _make_bg(art)
-    canvas = _draw_card(canvas)
+    canvas = _draw_left_panel(canvas, art)
     canvas = _draw_vinyl(canvas, art)
+    canvas = _draw_card(canvas)
 
-    draw   = ImageDraw.Draw(canvas)
+    draw = ImageDraw.Draw(canvas)
 
-    # ── TEXT ZONE ─────────────────────────────────────────────────────
-    TY = _CY1 + 68
-
-    # ── NOW PLAYING badge ─────────────────────────────────────────────
-    f_np    = _font(14, bold=True)
+    # ── NOW PLAYING badge ──────────────────────────────────────────────────────
+    f_np    = _font(16, bold=True)
     np_text = "N O W   P L A Y I N G"
-    # Amber pulse dot
-    draw.ellipse([_TX, TY + 4, _TX + 9, TY + 13],
-                 fill=(*_AMBER, 255))
-    draw.ellipse([_TX - 3, TY + 1, _TX + 12, TY + 16],
-                 outline=(*_AMBER, 60), width=1)
-    # Text
-    draw.text((_TX + 18, TY + 1), np_text, font=f_np, fill=(*_GOLD, 210))
+    draw.ellipse([_TX, 138, _TX + 10, 148],       fill=(*_GOLD, 255))
+    draw.ellipse([_TX - 3, 134, _TX + 13, 152],   outline=(*_GOLD, 80), width=1)
+    draw.text((_TX + 18, 135), np_text, font=f_np, fill=(*_GOLD, 220))
+
+    # ── Song title ────────────────────────────────────────────────────────────
+    title_lines = _wrap_title(draw, title, _BAR_W)
+    TY = 163
+    for i, (line, fnt_) in enumerate(title_lines):
+        draw.text((_TX + 2, TY + 2), line, font=fnt_, fill=(0, 0, 0, 100))
+        draw.text((_TX, TY),         line, font=fnt_, fill=(*_WHITE, 255))
+        TY += _th(draw, line, fnt_) + (8 if i < len(title_lines) - 1 else 0)
+    TY += 18
+
+    # ── Channel ───────────────────────────────────────────────────────────────
+    f_ch = _font(26, bold=False)
+    draw.text((_TX + 1, TY + 1), channel[:40], font=f_ch, fill=(0, 0, 0, 55))
+    draw.text((_TX, TY),         channel[:40], font=f_ch, fill=(*_SMOKE, 220))
+    TY += _th(draw, channel, f_ch) + 12
+
+    # Views (optional — only if passed)
+    draw.text((_TX, TY), "🎵 YouTube", font=_font(20, bold=False), fill=(*_DIM, 190))
     TY += 32
 
-    # ── Song title ────────────────────────────────────────────────────
-    title_lines = _wrap_title(draw, title, _TW)
-    for i, (line, fnt) in enumerate(title_lines):
-        # Soft shadow
-        draw.text((_TX + 2, TY + 3), line, font=fnt, fill=(0, 0, 0, 90))
-        # White text
-        draw.text((_TX, TY), line, font=fnt, fill=(*_WHITE, 255))
-        TY += _th(draw, line, fnt) + (8 if i < len(title_lines) - 1 else 0)
-    TY += 22
-
-    # ── Channel / artist ──────────────────────────────────────────────
-    f_ch    = _font(26, bold=False)
-    ch_disp = channel[:40]
-    draw.text((_TX + 1, TY + 1), ch_disp, font=f_ch, fill=(0, 0, 0, 60))
-    draw.text((_TX, TY), ch_disp, font=f_ch, fill=(*_SMOKE, 215))
-    TY += _th(draw, ch_disp, f_ch) + 24
-
-    # ── Gold divider (with fade) ───────────────────────────────────────
-    div_len = _TW - 10
-    div_l, dd = _new_layer()
-    for x in range(div_len):
-        frac = 1 - (x / div_len) ** 0.6
-        a    = int(160 * frac)
-        dd.point((_TX + x, TY), fill=(*_GOLD, a))
-    canvas = _merge(canvas, div_l)
-    # Highlight flare at start
-    div_l2, dd2 = _new_layer()
-    dd2.point((_TX, TY), fill=(*_GOLD_LT, 220))
-    dd2.point((_TX + 1, TY), fill=(*_GOLD_LT, 140))
-    canvas = _merge(canvas, div_l2)
+    # ── Gold separator ─────────────────────────────────────────────────────────
+    sep, sd = _new_layer()
+    for x in range(_BAR_W):
+        frac = 1 - (x / _BAR_W) ** 0.6
+        ImageDraw.Draw(sep).point((_TX + x, TY), fill=(*_GOLD, int(165 * frac)))
+    ImageDraw.Draw(sep).point((_TX,     TY), fill=(*_GOLD_LT, 255))
+    ImageDraw.Draw(sep).point((_TX + 1, TY), fill=(*_GOLD_LT, 180))
+    canvas = _merge(canvas, sep)
     draw   = ImageDraw.Draw(canvas)
-    TY += 22
+    TY += 18
 
-    # ── Progress bar ──────────────────────────────────────────────────
-    bar_w  = _TW - 12
-    el_str, tot_str = _draw_progress(canvas, draw, _TX, TY, bar_w,
-                                     duration, seed)
-    draw   = ImageDraw.Draw(canvas)
-    TY += 22
+    # ── Progress bar ──────────────────────────────────────────────────────────
+    el_str, tot_str = _draw_progress(canvas, draw, _TX, TY, _BAR_W, duration, seed)
+    draw = ImageDraw.Draw(canvas)
+    TY  += 20
 
-    # Time labels
-    f_time = _font(20, bold=False)
-    draw.text((_TX, TY), el_str, font=f_time, fill=(*_DIM, 200))
+    f_time = _font(22, bold=False)
+    draw.text((_TX, TY), el_str, font=f_time, fill=(*_DIM, 210))
     tw_str = _tw(draw, tot_str, f_time)
-    draw.text((_TX + bar_w - tw_str, TY), tot_str,
-              font=f_time, fill=(*_DIM, 200))
-    TY += _th(draw, el_str, f_time) + 26
+    draw.text((_TX + _BAR_W - tw_str, TY), tot_str, font=f_time, fill=(*_DIM, 210))
+    TY += _th(draw, el_str, f_time) + 22
 
-    # ── Requester (optional) ──────────────────────────────────────────
+    # ── Requester ─────────────────────────────────────────────────────────────
     req = _strip(requester)
     if req:
         f_req = _font(20, bold=False)
         req_t = f"Requested by  {req[:24]}"
-        draw.text((_TX, TY), req_t, font=f_req, fill=(*_STEEL, 200))
-        TY += _th(draw, req_t, f_req) + 16
+        draw.text((_TX, TY), req_t, font=f_req, fill=(*_STEEL, 205))
+        TY += _th(draw, req_t, f_req) + 14
 
-    # ── BRAND — bottom-right corner of card ───────────────────────────
-    brand   = "♪  MUSKAN MUSIC"
-    f_brand = _font(18, bold=True)
-    bw      = _tw(draw, brand, f_brand)
-    bx      = _CX2 - bw - 28
-    by      = _CY2 - 46
-
-    # Subtle pill behind brand
-    bp_l, bp = _new_layer()
-    bp.rounded_rectangle(
-        [bx - 10, by - 4, bx + bw + 10, by + _th(draw, brand, f_brand) + 4],
-        radius=8, fill=(*_CARD2, 140)
-    )
-    canvas = _merge(canvas, bp_l)
-    draw   = ImageDraw.Draw(canvas)
-
-    draw.text((bx + 1, by + 1), brand, font=f_brand, fill=(0, 0, 0, 80))
-    draw.text((bx, by), brand, font=f_brand, fill=(*_GOLD, 195))
-
-    # ── Frequency bars — left edge of card (subtle decoration) ────────
-    bars_l, bd = _new_layer()
-    bar_x      = _CX1 + 18
-    bar_base   = _VCY + _VR - 10
-    n_bars     = 16
-    for i in range(n_bars):
-        wave = math.sin(i * 0.55) * 0.5 + 0.5
-        bh   = int(12 + wave * 38)
-        frac = 1 - abs(i / n_bars - 0.5) * 2
-        a    = int(50 + 60 * frac)
-        bby  = bar_base - bh
-        bbx  = bar_x + i * 8
-        bd.rounded_rectangle(
-            [bbx, bby, bbx + 4, bar_base],
-            radius=2, fill=(*_GOLD, a)
+    # ── Equalizer bars (gold) ─────────────────────────────────────────────────
+    eq_l, ed = _new_layer()
+    for i in range(20):
+        bh  = int(12 + math.sin(i * 0.55) * 0.5 * 40 + 20)
+        a   = int(120 + 90 * (1 - abs(i / 20 - 0.5) * 2))
+        ed.rounded_rectangle(
+            [_TX + i * 26, 445 - bh, _TX + i * 26 + 17, 445],
+            radius=3, fill=(*_GOLD, min(255, a))
         )
-    canvas = _merge(canvas, bars_l)
+    canvas = _merge(canvas, eq_l)
 
-    # ── Save ──────────────────────────────────────────────────────────
+    # ── Brand pill (bottom-right of card) ─────────────────────────────────────
+    brand   = "♪  MUSKAN MUSIC"
+    f_brand = _font(22, bold=True)
+    draw    = ImageDraw.Draw(canvas)
+    bw      = _tw(draw, brand, f_brand)
+    bx1, by1, bx2, by2 = 1222 - bw - 22, 600, 1222, 630
+
+    pill, pd = _new_layer()
+    ImageDraw.Draw(pill).rounded_rectangle(
+        [bx1, by1, bx2, by2], radius=12, fill=(*_CARD2, 180)
+    )
+    canvas = _merge(canvas, pill)
+    draw   = ImageDraw.Draw(canvas)
+    draw.text((bx1 + 1, by1 + 6), brand, font=f_brand, fill=(0, 0, 0, 80))
+    draw.text((bx1,     by1 + 5), brand, font=f_brand, fill=(*_GOLD, 220))
+
+    # ── Save ──────────────────────────────────────────────────────────────────
     canvas.convert("RGB").save(out, "JPEG", quality=97, optimize=True)
     return out
