@@ -412,6 +412,14 @@ call_vc_left   : "<b>🎙️ 𝗩𝗖 𝗟𝗘𝗙𝗧</b>\n┄┄┄┄┄┄�
 
 
 # Bio Link Detector
+# Autoplay
+autoplay_1 : "🔁 <b>ਆਟੋਪਲੇ ਚਾਲੂ</b>\n\n✦ ਦੁਆਰਾ : {0}\n\n<i>ਜਦੋਂ ਕਿਊ ਖਾਲੀ ਹੋ ਜਾਵੇ, ਬੋਟ ਆਪਣੇ ਆਪ YouTube ਤੋਂ ਸੰਬੰਧਿਤ ਗੀਤ ਵਜਾਵੇਗਾ।</i>"
+autoplay_2 : "🔕 <b>ਆਟੋਪਲੇ ਬੰਦ</b>\n\n✦ ਦੁਆਰਾ : {0}\n\n<i>ਕਿਊ ਖਾਲੀ ਹੋਣ ਤੇ ਬੋਟ ਰੁਕ ਜਾਵੇਗਾ।</i>"
+autoplay_3 : "ℹ️ <b>ਆਟੋਪਲੇ ਸਥਿਤੀ</b>\n\nਆਟੋਪਲੇ ਹੁਣ <b>{0}</b> ਹੈ।\n\n<b>ਚਾਲੂ :</b> <code>/autoplay on</code>\n<b>ਬੰਦ :</b> <code>/autoplay off</code>"
+autoplay_4 : "<b>ਵਰਤੋਂ :</b>\n\n<code>/autoplay on</code>  — ਚਾਲੂ\n<code>/autoplay off</code> — ਬੰਦ\n<code>/autoplay</code>     — ਸਥਿਤੀ ਵੇਖੋ"
+autoplay_btn_on : "🔁 AutoPlay : ਚਾਲੂ"
+autoplay_btn_off : "🔁 AutoPlay : ਬੰਦ"
+
 bio_detect_1 : "⚠️ <b>ਬਾਇਓ ਵਿੱਚ ਲਿੰਕ ਮਿਲਿਆ!</b>\n\nਹੇ {mention}, ਤੁਹਾਡੀ ਬਾਇਓ ਵਿੱਚ ਇੱਕ ਲਿੰਕ ਹੈ ਜੋ ਇੱਥੇ ਮਨਜ਼ੂਰ ਨਹੀਂ।\n\nਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਬਾਇਓ ਤੋਂ ਲਿੰਕ ਹਟਾਓ, ਨਹੀਂ ਤਾਂ ਤੁਸੀਂ ਇਸ ਗਰੁੱਪ ਵਿੱਚ ਸੁਨੇਹੇ ਨਹੀਂ ਭੇਜ ਸਕਦੇ।"
 bio_detect_2 : "🔍 <b>ਬਾਇਓ ਲਿੰਕ ਡਿਟੈਕਟਰ</b> ਇਸ ਵੇਲੇ <b>{state}</b> ਹੈ\n\n<code>/biodetect on</code> ਜਾਂ <code>/biodetect off</code> ਵਰਤੋ"
 bio_detect_3 : "✅ <b>ਬਾਇਓ ਲਿੰਕ ਡਿਟੈਕਟਰ ਚਾਲੂ!</b>\n\nਹੁਣ ਮੈਂ ਬਾਇਓ ਵਿੱਚ ਲਿੰਕ ਵਾਲੇ ਯੂਜ਼ਰ ਦੇ ਸੁਨੇਹੇ ਡਿਲੀਟ ਕਰਾਂਗਾ।"

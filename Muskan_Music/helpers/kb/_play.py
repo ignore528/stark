@@ -28,7 +28,7 @@ def track_markup(_, videoid, user_id, channel, fplay):
     ]
     return buttons
 
-def stream_markup_timer(_, chat_id, played, dur):
+def stream_markup_timer(_, chat_id, played, dur, autoplay_on: bool = False):
     played_sec = time_to_seconds(played)
     duration_sec = time_to_seconds(dur)
     percentage = (played_sec / duration_sec) * 100 if duration_sec else 0
@@ -53,6 +53,7 @@ def stream_markup_timer(_, chat_id, played, dur):
         bar = "█████████░"
     else:
         bar = "██████████"
+    ap_text = _["autoplay_btn_on"] if autoplay_on else _["autoplay_btn_off"]
     buttons = [
         [
             success_button(text="▶️", callback_data=f"ADMIN Resume|{chat_id}"),
@@ -67,11 +68,15 @@ def stream_markup_timer(_, chat_id, played, dur):
                 callback_data="GetTimer",
             )
         ],
+        [
+            primary_button(text=ap_text, callback_data=f"ADMIN AutoPlay|{chat_id}"),
+        ],
         [danger_button(text=_["CLOSE_BUTTON"], callback_data="close")],
     ]
     return buttons
 
-def stream_markup(_, chat_id):
+def stream_markup(_, chat_id, autoplay_on: bool = False):
+    ap_text = _["autoplay_btn_on"] if autoplay_on else _["autoplay_btn_off"]
     buttons = [
         [
             success_button(text="▶️", callback_data=f"ADMIN Resume|{chat_id}"),
@@ -79,6 +84,9 @@ def stream_markup(_, chat_id):
             primary_button(text="🔄", callback_data=f"ADMIN Replay|{chat_id}"),
             success_button(text="⏭", callback_data=f"ADMIN Skip|{chat_id}"),
             danger_button(text="⏹", callback_data=f"ADMIN Stop|{chat_id}"),
+        ],
+        [
+            primary_button(text=ap_text, callback_data=f"ADMIN AutoPlay|{chat_id}"),
         ],
         [danger_button(text=_["CLOSE_BUTTON"], callback_data="close")],
     ]

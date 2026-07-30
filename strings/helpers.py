@@ -18,6 +18,13 @@ HELP_1 = """<b>╭━━〔 👑  ADMIN COMMANDS 〕━━╮</b>
 <code>/player</code>   ▸  Open interactive player panel
 <code>/queue</code>    ▸  View all queued tracks
 
+<b>◆ AutoPlay</b>
+┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
+<code>/autoplay on</code>   ▸  Enable autoplay — bot auto-plays a related YouTube track when queue ends
+<code>/autoplay off</code>  ▸  Disable autoplay — bot stops when queue is empty
+<code>/autoplay</code>       ▸  Check current autoplay status
+<code>/cautoplay</code>      ▸  Same for linked channel
+
 <b>◆ Bio Link Guard</b>
 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/biodetect on</code>   ▸  Auto-delete promo bio links

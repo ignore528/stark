@@ -9,6 +9,7 @@ from Muskan_Music.engine._vclient import Muskan
 from Muskan_Music.misc import SUDOERS, db
 from Muskan_Music.helpers._store import (
     get_active_chats,
+    get_autoplay,
     get_lang,
     get_upvote_count,
     is_active_chat,
@@ -16,6 +17,7 @@ from Muskan_Music.helpers._store import (
     is_nonadmin_chat,
     music_off,
     music_on,
+    set_autoplay,
     set_loop,
 )
 from pyrogram.errors import (
@@ -167,6 +169,28 @@ async def del_back_playlist(client, CallbackQuery, _):
         await CallbackQuery.message.reply_text(
             _["admin_4"].format(mention), reply_markup=close_markup(_)
         )
+    elif command == "AutoPlay":
+        await CallbackQuery.answer()
+        current = await get_autoplay(chat_id)
+        new_state = not current
+        await set_autoplay(chat_id, new_state)
+        if new_state:
+            text = _["autoplay_1"].format(mention)
+        else:
+            text = _["autoplay_2"].format(mention)
+        # Update the stream markup with the new autoplay state
+        try:
+            playing = db.get(chat_id)
+            if playing:
+                old_markup = playing[0].get("mystic")
+                if old_markup:
+                    button = stream_markup(_, chat_id, new_state)
+                    await old_markup.edit_reply_markup(
+                        reply_markup=InlineKeyboardMarkup(button)
+                    )
+        except Exception:
+            pass
+        await CallbackQuery.message.reply_text(text, reply_markup=close_markup(_))
     elif command == "Stop" or command == "End":
         await CallbackQuery.answer()
         await Muskan.stop_stream(chat_id)
@@ -397,11 +421,13 @@ async def markup_timer():
                     _ = get_string("en")
                 try:
                     current_played = int(db[chat_id][0].get("played", 0))
+                    ap_on = await get_autoplay(chat_id)
                     buttons = stream_markup_timer(
                         _,
                         chat_id,
                         seconds_to_min(current_played),
                         playing[0]["dur"],
+                        ap_on,
                     )
                     await mystic.edit_reply_markup(
                         reply_markup=InlineKeyboardMarkup(buttons)

@@ -405,6 +405,14 @@ call_vc_left   : "<b>🎙️ 𝗩𝗖 𝗟𝗘𝗙𝗧</b>\n┄┄┄┄┄┄�
 
 
 # Bio Link Detector
+# Autoplay
+autoplay_1 : "🔁 <b>تم تفعيل التشغيل التلقائي</b>\n\n✦ بواسطة : {0}\n\n<i>عند انتهاء قائمة التشغيل، سيقوم البوت تلقائياً بتشغيل أغنية من YouTube.</i>"
+autoplay_2 : "🔕 <b>تم إيقاف التشغيل التلقائي</b>\n\n✦ بواسطة : {0}\n\n<i>سيتوقف البوت عند انتهاء قائمة التشغيل.</i>"
+autoplay_3 : "ℹ️ <b>حالة التشغيل التلقائي</b>\n\nالتشغيل التلقائي حالياً <b>{0}</b>.\n\n<b>تفعيل :</b> <code>/autoplay on</code>\n<b>إيقاف :</b> <code>/autoplay off</code>"
+autoplay_4 : "<b>الاستخدام :</b>\n\n<code>/autoplay on</code>  — تفعيل\n<code>/autoplay off</code> — إيقاف\n<code>/autoplay</code>     — فحص الحالة"
+autoplay_btn_on : "🔁 AutoPlay : مفعّل"
+autoplay_btn_off : "🔁 AutoPlay : موقوف"
+
 bio_detect_1 : "⚠️ <b>تم اكتشاف رابط في السيرة الذاتية!</b>\n\nمرحبًا {mention}، تحتوي سيرتك الذاتية على رابط غير مسموح به هنا.\n\nيرجى إزالة الرابط من سيرتك الذاتية، وإلا لن تتمكن من الإرسال في هذه المجموعة."
 bio_detect_2 : "🔍 <b>كاشف روابط السيرة الذاتية</b> حالياً <b>{state}</b>\n\nاستخدم <code>/biodetect on</code> أو <code>/biodetect off</code>"
 bio_detect_3 : "✅ <b>تم تفعيل الكاشف!</b>\n\nسأحذف الآن رسائل المستخدمين الذين لديهم روابط في سيرتهم الذاتية."
