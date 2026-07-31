@@ -29,6 +29,7 @@ from Muskan_Music.misc import db
 from Muskan_Music.helpers._store import (
     add_active_chat,
     add_active_video_chat,
+    get_autoplay,
     get_lang,
     get_loop,
     get_vcnotify,
@@ -48,6 +49,9 @@ from strings import get_string
 
 autoend = {}
 counter = {}
+# Per-chat rolling history of recently played video IDs for autoplay deduplication
+_autoplay_history: dict = {}
+_AUTOPLAY_HISTORY_MAX = 20
 
 vc_join_monitors:     dict[int, asyncio.Task] = {}
 vc_join_snapshots:    dict[int, set]          = {}
@@ -293,6 +297,59 @@ class Call(PyTgCalls):
             if users == 1:
                 autoend[chat_id] = datetime.now() + timedelta(minutes=1)
 
+    async def _enqueue_autoplay_track(self, chat_id: int, finished_track: dict) -> bool:
+        """Queue ka khatam hone par ek related YouTube track fetch karke db mein add karo."""
+        if not finished_track:
+            return False
+        if not await get_autoplay(chat_id):
+            return False
+
+        vidid = str(finished_track.get("vidid") or "")
+        file_ = str(finished_track.get("file") or "")
+        # live streams aur non-YouTube tracks ke liye autoplay nahi
+        if not vidid or vidid in {"telegram", "soundcloud"}:
+            return False
+        if file_.startswith("live_") or file_.startswith("index_"):
+            return False
+
+        title = finished_track.get("title", "")
+        streamtype = finished_track.get("streamtype", "audio")
+        original_chat_id = finished_track.get("chat_id", chat_id)
+
+        # Build exclude set from rolling history
+        history = _autoplay_history.get(chat_id, [])
+        exclude_ids = set(history)
+        exclude_ids.add(vidid)
+
+        try:
+            recommendation = await YouTube.autoplay(vidid, title, exclude_ids=exclude_ids)
+        except Exception:
+            recommendation = None
+
+        if not recommendation:
+            return False
+
+        # Record in per-chat history (dedup rolling window)
+        hist = _autoplay_history.setdefault(chat_id, [])
+        hist.append(vidid)
+        if len(hist) > _AUTOPLAY_HISTORY_MAX:
+            hist.pop(0)
+
+        # Enqueue the recommended track
+        db.setdefault(chat_id, []).append({
+            "title": recommendation["title"].title(),
+            "dur": recommendation["duration_min"],
+            "streamtype": streamtype,
+            "by": "AutoPlay 🔁",
+            "user_id": 0,
+            "chat_id": original_chat_id,
+            "file": f"vid_{recommendation['vidid']}",
+            "vidid": recommendation["vidid"],
+            "seconds": recommendation["duration_sec"],
+            "played": 0,
+        })
+        return True
+
     async def change_stream(self, client, chat_id):
         check = db.get(chat_id)
         popped = None
@@ -305,8 +362,13 @@ class Call(PyTgCalls):
                 await set_loop(chat_id, loop)
             await auto_clean(popped)
             if not check:
-                await _clear_(chat_id)
-                return await client.leave_call(chat_id)
+                # ── AutoPlay: queue khatam hone par related track fetch karo ──
+                enqueued = await self._enqueue_autoplay_track(chat_id, popped)
+                if enqueued:
+                    check = db.get(chat_id)
+                if not check:
+                    await _clear_(chat_id)
+                    return await client.leave_call(chat_id)
         except:
             try:
                 await _clear_(chat_id)

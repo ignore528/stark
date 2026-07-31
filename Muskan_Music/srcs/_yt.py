@@ -10,6 +10,10 @@ import yt_dlp
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
 from py_yt import VideosSearch
+try:
+    from py_yt import Recommendations as _PyYtRec
+except ImportError:
+    _PyYtRec = None
 from Muskan_Music.helpers._store import is_on_off
 from Muskan_Music.helpers._fmt import time_to_seconds
 import os
@@ -553,3 +557,84 @@ class YouTubeAPI:
             direct = True
             downloaded_file = await download_song(link, mystic=mystic)
         return downloaded_file, direct
+
+    # ── AutoPlay ────────────────────────────────────────────────────────────
+
+    @staticmethod
+    def _clean_ap_title(title: str) -> str:
+        title = re.sub(r"\[[^\]]*\]|\([^\)]*\)", " ", title or "")
+        title = re.sub(
+            r"\b(official|video|audio|lyrics?|lyrical|remix|status|song|songs|"
+            r"music|feat\.?|ft\.?|prod\.?|full|hd|4k|hq|visualizer|slowed|reverb)\b",
+            " ",
+            title,
+            flags=re.IGNORECASE,
+        )
+        return re.sub(r"\s+", " ", title).strip()[:80]
+
+    @staticmethod
+    def _is_ok_result(item: dict, excluded: set, max_sec: int = 7200) -> bool:
+        vid = item.get("id")
+        dur = item.get("duration")
+        title = item.get("title")
+        if not vid or not dur or not title or vid in excluded:
+            return False
+        try:
+            from Muskan_Music.helpers._fmt import time_to_seconds as _tts
+            sec = int(_tts(str(dur)))
+        except Exception:
+            return False
+        return 30 < sec <= max_sec
+
+    async def autoplay(
+        self,
+        videoid: str,
+        title: str = "",
+        exclude_ids: set = None,
+    ):
+        """Return a related YouTube track dict for autoplay, or None."""
+        excluded = set(exclude_ids) if exclude_ids else set()
+        excluded.add(videoid)
+
+        def _make_result(item: dict):
+            vid = item.get("id")
+            dur = item.get("duration")
+            t   = item.get("title", "")
+            try:
+                from Muskan_Music.helpers._fmt import time_to_seconds as _tts
+                sec = int(_tts(str(dur)))
+            except Exception:
+                sec = 0
+            views   = (item.get("viewCount") or {}).get("short", "Unknown views")
+            channel = (item.get("channel") or {}).get("name", "YouTube")
+            return {"title": t, "duration_min": dur, "duration_sec": sec,
+                    "vidid": vid, "views": views, "channel": channel}
+
+        loop = asyncio.get_event_loop()
+
+        # ── Strategy 1: YouTube native related (Recommendations) ──────────
+        if _PyYtRec is not None:
+            try:
+                rec = _PyYtRec(videoid)
+                data = await asyncio.wait_for(
+                    loop.run_in_executor(None, rec.getNextResults), timeout=8.0
+                )
+                for item in (data.get("result") or []):
+                    if self._is_ok_result(item, excluded):
+                        return _make_result(item)
+            except Exception:
+                pass
+
+        # ── Strategy 2: Title-based search fallback ───────────────────────
+        clean = self._clean_ap_title(title)
+        query = f"{clean} song" if clean else "trending hindi songs"
+        try:
+            res  = VideosSearch(query, limit=20)
+            data = await asyncio.wait_for(res.next(), timeout=10.0)
+            for item in (data.get("result") or []):
+                if self._is_ok_result(item, excluded):
+                    return _make_result(item)
+        except Exception:
+            pass
+
+        return None
