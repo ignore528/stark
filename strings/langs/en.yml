@@ -85,7 +85,7 @@ admin_39 : "» Removed 1 upvote."
 admin_40 : "Upvoted."
 
 start_1 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n✦  <b>{0}</b>  ✦\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote>🟢  <b>Status</b>   ›  Online &amp; Ready\n⏱  <b>Uptime</b>   ›  <code>{1}</code></blockquote>"
-start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5915480455603295660>🎵</emoji><b> <b>DOLBY ATMOS </b><emoji id=5470135030393090150>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<b>Hey {0}!</b>  Welcome aboard <emoji id=5470135030393090150>🎵</emoji><b>\n\n<blockquote><i>❝ Music is the shorthand of emotion — and I stream it all. ❞</i>\n\n◆  <b>YouTube, Spotify &amp; Apple Music</b>\n◆  <b>SoundCloud, Resso &amp; Telegram Files</b>\n◆  <b>Crystal Clear HD Audio &amp; Video</b>\n◆  <b>Queue, Loop, Speed Control &amp; more</b></blockquote>\n\n<i>Powered by</i> <b>{1}</b> — your ultimate music companion <emoji id=5960715046869798071>🎧</emoji><b>"
+start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5915480455603295660>🎵</emoji><b> <b>DOLBY ATMOS </b><emoji id=5470135030393090150>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<b>Hey {0}!</b>  Welcome aboard <emoji id=5470135030393090150>🎵</emoji><b>\n\n<blockquote><i><emoji id=6269085886177087845>🎵</emoji><b> Music is the shorthand of emotion — and I stream it all. <emoji id=5456140674028019486>🎵</emoji><b></i>\n\n◆  <b>YouTube, Spotify &amp; Apple Music</b>\n◆  <b>SoundCloud, Resso &amp; Telegram Files</b>\n◆  <b>Crystal Clear HD Audio &amp; Video</b>\n◆  <b>Queue, Loop, Speed Control &amp; more</b></blockquote>\n\n<i>Powered by</i> <b>{1}</b> — your ultimate music companion <emoji id=5960715046869798071>🎧</emoji><b>"
 start_3 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5470135030393090150>🎵</emoji><b> <b>DOLBY MUSIC IS HERE!</b> <emoji id=5470135030393090150>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote>Hey {0}!  Thanks for adding <b>{1}</b> to <b>{2}</b><emoji id=5470135030393090150>🎵</emoji><b>\n\n<i>Ready to fill your group with premium music vibes — non-stop. ❞</i>\n\n◆  Use {3} to start streaming now!</blockquote>"
 
 start_4 : "<b>⚠️ Supergroup Required</b>\n\n<blockquote>Please convert your group to a supergroup first, then add me again.\n\n<b>How:</b> Open group settings → set chat history to <b>Visible</b></blockquote>"
@@ -172,13 +172,13 @@ ping_2 : "🏓 <b>Pong!</b>  <code>{0}ms</code>\n\n<b>{1}</b>\n\n<b>◈ System S
 queue_1 : "» Fetching queue...\n\nplease wait..."
 queue_2 : "» Queue empty."
 queue_3 : "<u>» click here to check the list of the queued tracks :</u> <a href={0}>here</a>"
-queue_4 : "<emoji id=5359305710012222901>🎶</emoji><b><b>Added to Queue #{0}</b>\n\n<b><emoji id=5409119256107297715>🎵</emoji><b> Title :</b> {1}\n<b><emoji id=5408910404732595664>🎵</emoji><b> Duration :</b> {2} min\n<b><emoji id=5409132617750555920>🎵</emoji><b> By :</b> {3}"
+queue_4 : "<emoji id=5359305710012222901>🎶</emoji><b> Added to Queue #{0}</b>\n\n<b><emoji id=5409119256107297715>🎵</emoji><b> Title :</b> {1}\n<b><emoji id=5408910404732595664>🎵</emoji><b> Duration :</b> {2} min\n<b><emoji id=5409132617750555920>🎵</emoji><b> By :</b> {3}"
 queue_5 : "There's only one queued track in playlist.\n\nadd more tracks to check list."
 queue_6 : "<b>⏱️ Duration :</b> Unknown (Live Stream)\n\nClick below for full queue."
 queue_7 : "\nclick on button below to get whole queued list."
 queue_8 : "🎧 <b>{0}</b>\n\n🎵 <b>Streaming :</b> {1}\n📡 <b>Type :</b> {2}\n👤 <b>By :</b> {3}\n{4}"
 
-stream_1 : "<emoji id=5915480455603295660>🎶</emoji><b><b>Now Streaming</b> <emoji id=5463107823946717464>🎶</emoji><b>
+stream_1 : "<emoji id=5915480455603295660>🎶</emoji><b><b>Now Streaming</b> <emoji id=6280793816702126346>🎶</emoji><b>
 
 ╔══════════════════╗
   <emoji id=5891249688933305846>🎶</emoji><b> <a href={0}><b>{1}</b></a>
@@ -357,14 +357,14 @@ song_9 : "Failed to download song from yt-dl\n\n**reason:** {0}"
 song_10 : "Failed to upload on telegram servers."
 song_11 : "Uploading started baby\n\nplease hold on..."
 
-call_vc_joined : "<b><emoji id=5294339927318739359>🎙️ </emoji><b>𝗩𝗖 𝗝𝗢𝗜𝗡𝗘𝗗</b>\n┄┄┄┄┄┄┄┄┄┄┄┄\n• User : {mention}\n• ID   : <code>{user_id}</code>"
-call_vc_left   : "<b><emoji id=5294339927318739359>🎙️ </emoji><b>𝗩𝗖 𝗟𝗘𝗙𝗧</b>\n┄┄┄┄┄┄┄┄┄┄┄┄\n• User : {mention}\n• ID   : <code>{user_id}</code>"
+call_vc_joined : "<b><emoji id=5294339927318739359>🎙️</emoji><b> 𝗩𝗖 𝗝𝗢𝗜𝗡𝗘𝗗</b>\n┄┄┄┄┄┄┄┄┄┄┄┄\n• User : {mention}\n• ID   : <code>{user_id}</code>"
+call_vc_left   : "<b><emoji id=5294339927318739359>🎙️</emoji><b> 𝗩𝗖 𝗟𝗘𝗙𝗧</b>\n┄┄┄┄┄┄┄┄┄┄┄┄\n• User : {mention}\n• ID   : <code>{user_id}</code>"
 
 
 # Autoplay
 autoplay_1 : "<emoji id=5839200986022812209>🔁</emoji><b><b>AutoPlay Enabled</b>\n\n✦ By : {0}\n\n<i>When the queue ends, the bot will automatically play a related YouTube track.</i>"
 autoplay_2 : "<emoji id=5240241223632954241>🚫</emoji><b><b>AutoPlay Disabled</b>\n\n✦ By : {0}\n\n<i>Bot will stop when the queue is empty.</i>"
-autoplay_3 : "ℹ️ <b>AutoPlay Status</b>\n\nAutoplay is currently <b>{0}</b>.\n\n<b>Enable :</b> <code>/autoplay on</code>\n<b>Disable :</b> <code>/autoplay off</code>"
+autoplay_3 : "<emoji id=5440660757194744323>🎵</emoji><b><b>AutoPlay Status</b>\n\nAutoplay is currently <b>{0}</b>.\n\n<b>Enable :</b> <code>/autoplay on</code>\n<b>Disable :</b> <code>/autoplay off</code>"
 autoplay_4 : "<b>Usage :</b>\n\n<code>/autoplay on</code>  — enable autoplay\n<code>/autoplay off</code> — disable autoplay\n<code>/autoplay</code>     — check current status"
 autoplay_btn_on : "AutoPlay : ON"
 autoplay_btn_off : "AutoPlay : OFF"
