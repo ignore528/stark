@@ -178,7 +178,7 @@ queue_6 : "<b>⏱️ Duration :</b> Unknown (Live Stream)\n\nClick below for ful
 queue_7 : "\nclick on button below to get whole queued list."
 queue_8 : "🎧 <b>{0}</b>\n\n🎵 <b>Streaming :</b> {1}\n📡 <b>Type :</b> {2}\n👤 <b>By :</b> {3}\n{4}"
 
-stream_1 : "🎵 <b>Now Streaming</b> 🎵
+stream_1 : "<emoji id=5915480455603295660>🎶</emoji><b><b>Now Streaming</b> 🎵
 
 ╔══════════════════╗
   🎶 <a href={0}><b>{1}</b></a>
