@@ -71,7 +71,7 @@ def stream_markup_timer(_, chat_id, played, dur, autoplay_on: bool = False):
         [
             primary_button(text=ap_text, callback_data=f"ADMIN AutoPlay|{chat_id}", icon_custom_emoji_id=5839200986022812209),
         ],
-        [danger_button(text=_["CLOSE_BUTTON"], callback_data="close")], icon_custom_emoji_id=5445267414562389170),
+        [danger_button(text=_["CLOSE_BUTTON"], callback_data="close", icon_custom_emoji_id=5445267414562389170),
     ]
     return buttons
 
