@@ -25,7 +25,7 @@ from Muskan_Music.helpers._log import play_logs
 from Muskan_Music.helpers.flow._strm import stream
 from config import BANNED_USERS, lyrical
 
-EMOJII = [    "💞", "🔍", "🧪", "⚡️", "🔥", "🎩", "🌈", "🍷", "🥂", "🥃", "🥤", "🕊️",
+#EMOJII = [    "💞", "🔍", "🧪", "⚡️", "🔥", "🎩", "🌈", "🍷", "🥂", "🥃", "🥤", "🕊️",
     "🕊️", "🦋", "🕊️", "🪄", "💌", "🧨"]
 
 @app.on_message(
