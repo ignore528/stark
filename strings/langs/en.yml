@@ -357,12 +357,12 @@ song_9 : "Failed to download song from yt-dl\n\n**reason:** {0}"
 song_10 : "Failed to upload on telegram servers."
 song_11 : "Uploading started baby\n\nplease hold on..."
 
-call_vc_joined : "<b><emoji id=5294339927318739359>🎙️ </emoji><b> 𝗩𝗖 𝗝𝗢𝗜𝗡𝗘𝗗</b>\n┄┄┄┄┄┄┄┄┄┄┄┄\n• User : {mention}\n• ID   : <code>{user_id}</code>"
-call_vc_left   : "<b><emoji id=5294339927318739359>🎙️ </emoji><b> 𝗩𝗖 𝗟𝗘𝗙𝗧</b>\n┄┄┄┄┄┄┄┄┄┄┄┄\n• User : {mention}\n• ID   : <code>{user_id}</code>"
+call_vc_joined : "<b><emoji id=5294339927318739359>🎙️ </emoji><b>𝗩𝗖 𝗝𝗢𝗜𝗡𝗘𝗗</b>\n┄┄┄┄┄┄┄┄┄┄┄┄\n• User : {mention}\n• ID   : <code>{user_id}</code>"
+call_vc_left   : "<b><emoji id=5294339927318739359>🎙️ </emoji><b>𝗩𝗖 𝗟𝗘𝗙𝗧</b>\n┄┄┄┄┄┄┄┄┄┄┄┄\n• User : {mention}\n• ID   : <code>{user_id}</code>"
 
 
 # Autoplay
-autoplay_1 : "🔁 <b>AutoPlay Enabled</b>\n\n✦ By : {0}\n\n<i>When the queue ends, the bot will automatically play a related YouTube track.</i>"
+autoplay_1 : "<emoji id=5839200986022812209>🔁</emoji><b><b>AutoPlay Enabled</b>\n\n✦ By : {0}\n\n<i>When the queue ends, the bot will automatically play a related YouTube track.</i>"
 autoplay_2 : "🔕 <b>AutoPlay Disabled</b>\n\n✦ By : {0}\n\n<i>Bot will stop when the queue is empty.</i>"
 autoplay_3 : "ℹ️ <b>AutoPlay Status</b>\n\nAutoplay is currently <b>{0}</b>.\n\n<b>Enable :</b> <code>/autoplay on</code>\n<b>Disable :</b> <code>/autoplay off</code>"
 autoplay_4 : "<b>Usage :</b>\n\n<code>/autoplay on</code>  — enable autoplay\n<code>/autoplay off</code> — disable autoplay\n<code>/autoplay</code>     — check current status"
