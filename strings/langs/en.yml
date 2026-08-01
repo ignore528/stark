@@ -48,7 +48,7 @@ admin_2 : "⏸️ <b>Stream Paused</b>\n\n✦ By : {0}"
 admin_3 : "» Did you remember that you've paused the stream ?"
 admin_4 : "▶️ <b>Stream Resumed</b>\n\n✦ By : {0}"
 admin_5 : "⏹️ <b>Stream Stopped</b>\n\n✦ By : {0}"
-admin_6 : "⏭️ <b>Stream Skipped</b>\n\n✦ By : {0}\n\n<b>📭 No more tracks in {1}, leaving videochat.</b>"
+admin_6 : "<emoji id=5456140674028019486>⏭️</emoji><b><b>Stream Skipped</b>\n\n✦ By : {0}\n\n<b><emoji id=5240241223632954241>🚫</emoji><b>No more tracks in {1}, leaving videochat.</b>"
 admin_7 : "Error while changing stream to {0}."
 admin_8 : "» Please disable loop play via <code>/loop disable</code> and then try to skip again."
 admin_9 : "Please use specific numbers for skip, like 1, 2, 4..."
@@ -363,7 +363,7 @@ call_vc_left   : "<b><emoji id=5294339927318739359>🎙️ </emoji><b>𝗩𝗖 �
 
 # Autoplay
 autoplay_1 : "<emoji id=5839200986022812209>🔁</emoji><b><b>AutoPlay Enabled</b>\n\n✦ By : {0}\n\n<i>When the queue ends, the bot will automatically play a related YouTube track.</i>"
-autoplay_2 : "🔕 <b>AutoPlay Disabled</b>\n\n✦ By : {0}\n\n<i>Bot will stop when the queue is empty.</i>"
+autoplay_2 : "<emoji id=5240241223632954241>🚫</emoji><b><b>AutoPlay Disabled</b>\n\n✦ By : {0}\n\n<i>Bot will stop when the queue is empty.</i>"
 autoplay_3 : "ℹ️ <b>AutoPlay Status</b>\n\nAutoplay is currently <b>{0}</b>.\n\n<b>Enable :</b> <code>/autoplay on</code>\n<b>Disable :</b> <code>/autoplay off</code>"
 autoplay_4 : "<b>Usage :</b>\n\n<code>/autoplay on</code>  — enable autoplay\n<code>/autoplay off</code> — disable autoplay\n<code>/autoplay</code>     — check current status"
 autoplay_btn_on : "AutoPlay : ON"
