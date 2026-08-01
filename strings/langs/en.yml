@@ -85,7 +85,7 @@ admin_39 : "» Removed 1 upvote."
 admin_40 : "Upvoted."
 
 start_1 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n✦  <b>{0}</b>  ✦\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote>🟢  <b>Status</b>   ›  Online &amp; Ready\n⏱  <b>Uptime</b>   ›  <code>{1}</code></blockquote>"
-start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5915480455603295660>🎵</emoji><b> <b>DOLBY ATMOS </b><emoji id=5470135030393090150>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<b>Hey {0}!</b>  Welcome aboard <emoji id=5470135030393090150>🎵</emoji><b>\n\n<blockquote><i>❝ Music is the shorthand of emotion — and I stream it all. ❞</i>\n\n◆  <b>YouTube, Spotify &amp; Apple Music</b>\n◆  <b>SoundCloud, Resso &amp; Telegram Files</b>\n◆  <b>Crystal Clear HD Audio &amp; Video</b>\n◆  <b>Queue, Loop, Speed Control &amp; more</b></blockquote>\n\n<i>Powered by</i> <b>{1}</b> — your ultimate music companion <emoji id=6007938409857815902>🎧</emoji><b>"
+start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5915480455603295660>🎵</emoji><b> <b>DOLBY ATMOS </b><emoji id=5470135030393090150>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<b>Hey {0}!</b>  Welcome aboard <emoji id=5470135030393090150>🎵</emoji><b>\n\n<blockquote><i>❝ Music is the shorthand of emotion — and I stream it all. ❞</i>\n\n◆  <b>YouTube, Spotify &amp; Apple Music</b>\n◆  <b>SoundCloud, Resso &amp; Telegram Files</b>\n◆  <b>Crystal Clear HD Audio &amp; Video</b>\n◆  <b>Queue, Loop, Speed Control &amp; more</b></blockquote>\n\n<i>Powered by</i> <b>{1}</b> — your ultimate music companion <emoji id=5960715046869798071>🎧</emoji><b>"
 start_3 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5470135030393090150>🎵</emoji><b> <b>DOLBY MUSIC IS HERE!</b> <emoji id=5470135030393090150>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote>Hey {0}!  Thanks for adding <b>{1}</b> to <b>{2}</b><emoji id=5470135030393090150>🎵</emoji><b>\n\n<i>Ready to fill your group with premium music vibes — non-stop. ❞</i>\n\n◆  Use {3} to start streaming now!</blockquote>"
 
 start_4 : "<b>⚠️ Supergroup Required</b>\n\n<blockquote>Please convert your group to a supergroup first, then add me again.\n\n<b>How:</b> Open group settings → set chat history to <b>Visible</b></blockquote>"
@@ -94,7 +94,7 @@ start_5 : "<b>🚫 Blacklisted Chat</b>\n\n<blockquote>This chat is blacklisted 
 
 start_6 : "<b>🎵 Track Info</b>\n\n<blockquote><b>Title</b>      ›  {0}\n<b>Duration</b>   ›  <code>{1}</code> min\n<b>Views</b>      ›  <code>{2}</code>\n<b>Published</b>  ›  {3}\n<b>Channel</b>    ›  <a href={4}>{5}</a>\n\n🤖 <i>Powered by {6}</i></blockquote>"
 
-help_1 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5470135030393090150>🎵</emoji<b> <b>DOLBY — HELP CENTER</b> <emoji id=5386367538735104399>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote><i>❝ Your premium Telegram music streaming bot — built for quality, speed &amp; style. ❞</i>\n\n◆  Pick a category below to explore commands\n◆  All commands start with <code>/</code> prefix\n◆  Support → <a href={0}>Join Our Chat</a></blockquote>"
+help_1 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5258096772776991776>🎵</emoji<b> <b>DOLBY — HELP CENTER</b> <emoji id=5386367538735104399>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote><i><emoji id=5787451427584478774>🎵</emoji><b> Your premium Telegram music streaming bot — built for quality, speed &amp; style. <emoji id=5343819952023428595>🎵</emoji><b></i>\n\n<emoji id=5890997763331591703>🎵</emoji><b>  Pick a category below to explore commands\n<emoji id=5264755312115591224>🎵</emoji><b>  All commands start with <code>/</code> prefix\n<emoji id=5258023599419171861>🎵</emoji><b>  Support <emoji id=5875506366050734240>🎵</emoji><b> <a href={0}>Join Our Chat</a></blockquote>"
 
 help_2 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5406745015365943482>🎵</emoji><b> <b>DOLBY MUSIC</b> <emoji id=5388632425314140043>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote><i><emoji id=5282843764451195532>🎵</emoji><b>Tap below to open the full Help Menu in your PM.<emoji id=5877260593903177342>🎵</emoji><b></i></blockquote>"
 
@@ -139,7 +139,7 @@ cplay_5 : "Only channels are supported."
 cplay_6 : "» You need to be the <b>owner</b> of the channel {0} to connect it with this group.\n<b>channel's owner :</b> @{1}\n\nalternatively you can link your group to that channel and then try connnecting with <code>/channelplay linked</code>"
 cplay_7 : "» Channel play disabled."
 
-play_1 : "🔎"
+play_1 : "🔎 Searching your query... hold on!"
 play_2 : "📻 <b>Channel Play Mode</b>\n\nProcessing, please wait...\n\n<b>✦ Linked Channel :</b> {0}"
 play_3 : "» Failed to process query."
 play_4 : "<b>Admins Only Play</b>\nOnly admins of this chat are allowed to play\n\nChange play mode via /playmode"
