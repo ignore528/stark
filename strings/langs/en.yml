@@ -196,8 +196,8 @@ stream_2 : "📡 <b>Live Streaming</b> 📡
 <b>👤 Requested by :</b> {0}"
 
 
-CLOSE_BUTTON  : "<emoji id=5445267414562389170>🗑</emoji><b>Close"
-BACK_BUTTON : "<emoji id=5875082500023258804>⬅️</emoji><b>Back"
+CLOSE_BUTTON  : "Close"
+BACK_BUTTON : "Back"
 NEXT_PAGE: "›"
 BACK_PAGE: "‹"
 
@@ -366,8 +366,8 @@ autoplay_1 : "🔁 <b>AutoPlay Enabled</b>\n\n✦ By : {0}\n\n<i>When the queue 
 autoplay_2 : "🔕 <b>AutoPlay Disabled</b>\n\n✦ By : {0}\n\n<i>Bot will stop when the queue is empty.</i>"
 autoplay_3 : "ℹ️ <b>AutoPlay Status</b>\n\nAutoplay is currently <b>{0}</b>.\n\n<b>Enable :</b> <code>/autoplay on</code>\n<b>Disable :</b> <code>/autoplay off</code>"
 autoplay_4 : "<b>Usage :</b>\n\n<code>/autoplay on</code>  — enable autoplay\n<code>/autoplay off</code> — disable autoplay\n<code>/autoplay</code>     — check current status"
-autoplay_btn_on : "🔁 AutoPlay : ON"
-autoplay_btn_off : "🔁 AutoPlay : OFF"
+autoplay_btn_on : "AutoPlay : ON"
+autoplay_btn_off : "AutoPlay : OFF"
 
 # Bio Link Detector
 bio_detect_1 : "⚠️ <b>Bio Link Detected!</b>\n\nHey {mention}, your bio contains a link which is not allowed here.\n\nPlease remove the link from your bio, otherwise you cannot send messages in this group."
