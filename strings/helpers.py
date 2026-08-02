@@ -3,9 +3,9 @@
 # ══════════════════════════════════════════════════════════════
 
 
-HELP_1 = """<b>╭━━〔 👑  ADMIN COMMANDS 〕━━╮</b>
+HELP_1 = """<b>╭━━〔 <emoji id=6269458311381258421>🎵</emoji><b>  ADMIN COMMANDS 〕━━╮</b>
 
-<blockquote><b>◆ Playback Controls</b>
+<blockquote><b><emoji id=5388632425314140043>🎵</emoji><b> Playback Controls</b>
 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/pause</code>    ▸  Pause the current stream
 <code>/resume</code>   ▸  Resume a paused stream
@@ -13,27 +13,27 @@ HELP_1 = """<b>╭━━〔 👑  ADMIN COMMANDS 〕━━╮</b>
 <code>/end</code>      ▸  Clear queue &amp; stop stream
 <code>/stop</code>     ▸  Same as /end
 
-<b>◆ Panel &amp; Queue</b>
+<b><emoji id=5470135030393090150>🎵</emoji><b> Panel &amp; Queue</b>
 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/player</code>   ▸  Open interactive player panel
 <code>/queue</code>    ▸  View all queued tracks
 
-<b>◆ AutoPlay</b>
+<b><emoji id=5264919878082509254>🎵</emoji><b> AutoPlay</b>
 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/autoplay on</code>   ▸  Enable autoplay — bot auto-plays a related YouTube track when queue ends
 <code>/autoplay off</code>  ▸  Disable autoplay — bot stops when queue is empty
 <code>/autoplay</code>       ▸  Check current autoplay status
 <code>/cautoplay</code>      ▸  Same for linked channel
 
-<b>◆ Bio Link Guard</b>
+<b><emoji id=5420323339723881652>🎵</emoji><b> Bio Link Guard</b>
 ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
 <code>/biodetect on</code>   ▸  Auto-delete promo bio links
 <code>/biodetect off</code>  ▸  Disable detection
 <code>/biodetect</code>      ▸  Check current status
 
-<i>❝ Add <b>c</b> before any command for channel use — e.g. <code>/cpause</code>  <code>/cskip</code> ❞</i></blockquote>
+<i><emoji id=5774034804450267485>🎵</emoji><b> Add <b>c</b> before any command for channel use — e.g. <code>/cpause</code>  <code>/cskip</code> ❞</i></blockquote>
 
-<b>╰━━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
+<b>╰━━━━━━━━━━━━━━━━━━━━━━━╯</b>"""
 
 
 HELP_2 = """<b>╭━━━〔 🛡  AUTH USERS 〕━━━╮</b>
