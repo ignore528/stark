@@ -185,7 +185,7 @@ stream_1 : "<emoji id=5915480455603295660>🎶</emoji><b><b>Now Streaming</b> <e
 ╚══════════════════╝
 
 <b><emoji id=5382194935057372936>⏱</emoji><b> Duration :</b> <code>{2}</code> min
-<b><emoji id=5879770735999717115>👤</emoji><b> Requested by :</b> {3}"
+\n<b><emoji id=5879770735999717115>👤</emoji><b> Requested by :</b> {3}"
 
 stream_2 : "📡 <b>Live Streaming</b> 📡
 
