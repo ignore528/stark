@@ -59,7 +59,7 @@ def private_help_panel(_):
         [
             success_button(
                 text=_["S_B_4"],
-                url=f"https://t.me/{app.username}?start=help", icon_custom_emoji_id=5314504236132747481),
+                url=f"https://t.me/{app.username}?start=help", 
             ),
         ],
     ]
