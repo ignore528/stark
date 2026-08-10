@@ -11,7 +11,7 @@ def start_panel(_):
             primary_button(
                 text=_["SO_B_1"], url=f"https://t.me/{app.username}?startgroup=true",
             ),
-            success_button(text=_["S_B_2"], url=config.SUPPORT_CHAT),
+            success_button(text=_["S_B_2"], url=config.SUPPORT_CHAT, icon_custom_emoji_id=5443038326535759644),
         ],
     ]
     return buttons
