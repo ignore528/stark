@@ -84,7 +84,7 @@ admin_38 : "» Added 1 upvote."
 admin_39 : "» Removed 1 upvote."
 admin_40 : "Upvoted."
 
-start_1 : "╭━━━━━━━━━━━━━━━━━━━━╮\n✦ ✨ Hey,\nThis is <b>{0}</b>  ✦\n╰━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote>🟢  <b>Status</b>   ›  Online &amp; Ready\n⏱  <b>Uptime</b>   ›  <code>{1}</code></blockquote>"
+start_1 : "╭━━━━━━━━━━━━━━━━━━━╮\n✦ <emoji id=5915480455603295660>✨</emoji><b> Hey,\n This is <b>{0}</b>  ✦\n╰━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote>🟢  <b>Status</b>   ›  Online &amp; Ready\n⏱  <b>Uptime</b>   ›  <code>{1}</code></blockquote>"
 start_2 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5915480455603295660>🎵</emoji><b> <b>DOLBY ATMOS </b><emoji id=5470135030393090150>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<b>Hey {0}!</b>  Welcome aboard <emoji id=5470135030393090150>🎵</emoji><b>\n\n<blockquote><i><emoji id=6269085886177087845>🎵</emoji><b> Music is the shorthand of emotion — and I stream it all. <emoji id=5456140674028019486>🎵</emoji><b></i>\n\n◆  <b>YouTube, Spotify &amp; Apple Music</b>\n◆  <b>SoundCloud, Resso &amp; Telegram Files</b>\n◆  <b>Crystal Clear HD Audio &amp; Video</b>\n◆  <b>Queue, Loop, Speed Control &amp; more</b></blockquote>\n\n<i>Powered by</i> <b>{1}</b> — your ultimate music companion <emoji id=5960715046869798071>🎧</emoji><b>"
 start_3 : "╭━━━━━━━━━━━━━━━━━━━━━━╮\n<emoji id=5470135030393090150>🎵</emoji><b> <b>DOLBY MUSIC IS HERE!</b> <emoji id=5470135030393090150>🎵</emoji><b>\n╰━━━━━━━━━━━━━━━━━━━━━━╯\n\n<blockquote>Hey {0}!  Thanks for adding <b>{1}</b> to <b>{2}</b><emoji id=5470135030393090150>🎵</emoji><b>\n\n<i>Ready to fill your group with premium music vibes — non-stop. ❞</i>\n\n◆  Use {3} to start streaming now!</blockquote>"
 
