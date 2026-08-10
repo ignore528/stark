@@ -28,8 +28,8 @@ def private_panel(_):
             success_button(text=_["S_B_4"], callback_data="settings_back_helper"),
         ],
         [
-            danger_button(text=_["S_B_6"], url=config.SUPPORT_CHANNEL),
-            success_button(text=_["S_B_2"], url=config.SUPPORT_CHAT),
+            danger_button(text=_["S_B_6"], url=config.SUPPORT_CHANNEL, icon_custom_emoji_id=5375338737028841420),
+            success_button(text=_["S_B_2"], url=config.SUPPORT_CHAT, icon_custom_emoji_id=5443038326535759644),
         ],
     ]
     if config.SOURCE and config.SOURCE.startswith("http"):
