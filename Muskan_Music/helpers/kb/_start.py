@@ -33,5 +33,5 @@ def private_panel(_):
         ],
     ]
     if config.SOURCE and config.SOURCE.startswith("http"):
-        buttons.append([primary_button(text=_["S_B_7"], url=config.SOURCE)])
+        buttons.append([primary_button(text=_["S_B_7"], url=config.SOURCE, icon_custom_emoji_id=5253742260054409879),
     return buttons
