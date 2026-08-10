@@ -56,7 +56,7 @@ def stream_markup_timer(_, chat_id, played, dur, autoplay_on: bool = False):
     ap_text = _["autoplay_btn_on"] if autoplay_on else _["autoplay_btn_off"]
     buttons = [
         [
-            success_button(text="▶️", callback_data=f"ADMIN Resume|{chat_id}"),
+            success_button(text="<emoji id=5348125953090403204>▶️</emoji><b>", callback_data=f"ADMIN Resume|{chat_id}"),
             danger_button(text="⏸", callback_data=f"ADMIN Pause|{chat_id}"),
             primary_button(text="🔄", callback_data=f"ADMIN Replay|{chat_id}"),
             success_button(text="⏭", callback_data=f"ADMIN Skip|{chat_id}"),
