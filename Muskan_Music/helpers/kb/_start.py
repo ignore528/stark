@@ -25,7 +25,7 @@ def private_panel(_):
             )
         ],
         [
-            success_button(text=_["S_B_4"], callback_data="settings_back_helper" icon_custom_emoji_id=5314504236132747481),
+            success_button(text=_["S_B_4"], callback_data="settings_back_helper", icon_custom_emoji_id=5314504236132747481),
         ],
         [
             danger_button(text=_["S_B_6"], url=config.SUPPORT_CHANNEL, icon_custom_emoji_id=5424818078833715060),
@@ -33,5 +33,5 @@ def private_panel(_):
         ],
     ]
     if config.SOURCE and config.SOURCE.startswith("http"):
-        buttons.append([primary_button(text=_["S_B_7"], url=config.SOURCE)])
+        buttons.append([primary_button(text=_["S_B_7"], url=config.SOURCE, icon_custom_emoji_id=5253742260054409879),
     return buttons
