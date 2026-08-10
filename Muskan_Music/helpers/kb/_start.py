@@ -9,7 +9,7 @@ def start_panel(_):
     buttons = [
         [
             primary_button(
-                text=_["SO_B_1"], url=f"https://t.me/{app.username}?startgroup=true", icon_custom_emoji_id=5258362837411045098),
+                text=_["SO_B_1"], url=f"https://t.me/{app.username}?startgroup=true"),
             ),
             success_button(text=_["S_B_2"], url=config.SUPPORT_CHAT),
         ],
