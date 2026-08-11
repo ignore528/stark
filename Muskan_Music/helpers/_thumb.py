@@ -525,7 +525,7 @@ async def get_thumb(
     canvas = _merge(canvas, eq_l)
 
     # ── Brand pill (bottom-right of card) ─────────────────────────────────────
-    brand   = "♪  MUSKAN MUSIC"
+    brand   = "♪  DOLBY MUSIC"
     f_brand = _font(22, bold=True)
     draw    = ImageDraw.Draw(canvas)
     bw      = _tw(draw, brand, f_brand)
