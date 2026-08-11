@@ -64,7 +64,7 @@ def stream_markup_timer(_, chat_id, played, dur, autoplay_on: bool = False):
         ],
         [
             primary_button(
-                text=f"🕐 {played} {bar} {dur}",
+                text=f"🕐 {played} {bar} {dur}", icon_custom_emoji_id=5382194935057372936),
                 callback_data="GetTimer",
             )
         ],
