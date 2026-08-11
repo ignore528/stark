@@ -56,11 +56,11 @@ def stream_markup_timer(_, chat_id, played, dur, autoplay_on: bool = False):
     ap_text = _["autoplay_btn_on"] if autoplay_on else _["autoplay_btn_off"]
     buttons = [
         [
-            success_button(text="", callback_data=f"ADMIN Resume|{chat_id}", icon_custom_emoji_id=5348125953090403204),
-            danger_button(text="", callback_data=f"ADMIN Pause|{chat_id}", icon_custom_emoji_id=5359543311897998264),
-            primary_button(text="", callback_data=f"ADMIN Replay|{chat_id}", icon_custom_emoji_id=5264727218734524899),
-            success_button(text="", callback_data=f"ADMIN Skip|{chat_id}", icon_custom_emoji_id=5416117059207572332),
-            danger_button(text="", callback_data=f"ADMIN Stop|{chat_id}", icon_custom_emoji_id=5260293700088511294),
+            success_button(text="", callback_data=f"ADMIN Resume|{chat_id}", icon_custom_emoji_id=5996789164383669947),
+            danger_button(text="", callback_data=f"ADMIN Pause|{chat_id}", icon_custom_emoji_id=5900130736408629854),
+            primary_button(text="", callback_data=f"ADMIN Replay|{chat_id}", icon_custom_emoji_id=5877680341057015789),
+            success_button(text="", callback_data=f"ADMIN Skip|{chat_id}", icon_custom_emoji_id=5449430500592604057),
+            danger_button(text="", callback_data=f"ADMIN Stop|{chat_id}", icon_custom_emoji_id=5778527486270770928),
         ],
         [
             primary_button(
