@@ -15,7 +15,7 @@ def queue_markup(_, DURATION, CPLAY, videoid, played: Union[bool, int] = None, d
             ),
             danger_button(
                 text=_["CLOSE_BUTTON"],
-                callback_data="close",
+                callback_data="close", icon_custom_emoji_id=5445267414562389170)],
             ),
         ]
     ]
