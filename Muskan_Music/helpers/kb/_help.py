@@ -18,7 +18,7 @@ def help_pannel(_, START: Union[bool, int] = None):
     upl = InlineKeyboardMarkup(
         [
             [
-                primary_button(text=_["H_B_1"], callback_data="h:1"),
+                primary_button(text=_["H_B_1"], callback_data="h:1", icon_custom_emoji_id=6269458311381258421),
                 success_button(text=_["H_B_3"], callback_data="h:3"),
             ],
             [
