@@ -19,7 +19,7 @@ def help_pannel(_, START: Union[bool, int] = None):
         [
             [
                 primary_button(text=_["H_B_1"], callback_data="h:1", icon_custom_emoji_id=6269458311381258421),
-                success_button(text=_["H_B_3"], callback_data="h:3"),
+                success_button(text=_["H_B_3"], callback_data="h:3", icon_custom_emoji_id=5424818078833715060),
             ],
             [
                 danger_button(text=_["H_B_6"], callback_data="h:6"),
