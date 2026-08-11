@@ -57,10 +57,10 @@ def stream_markup_timer(_, chat_id, played, dur, autoplay_on: bool = False):
     buttons = [
         [
             success_button(text="", callback_data=f"ADMIN Resume|{chat_id}", icon_custom_emoji_id=5348125953090403204),
-            danger_button(text="⏸", callback_data=f"ADMIN Pause|{chat_id}"),
-            primary_button(text="🔄", callback_data=f"ADMIN Replay|{chat_id}"),
-            success_button(text="⏭", callback_data=f"ADMIN Skip|{chat_id}"),
-            danger_button(text="⏹", callback_data=f"ADMIN Stop|{chat_id}"),
+            danger_button(text="", callback_data=f"ADMIN Pause|{chat_id}", icon_custom_emoji_id=5359543311897998264),
+            primary_button(text="", callback_data=f"ADMIN Replay|{chat_id}", icon_custom_emoji_id=5264727218734524899),
+            success_button(text="", callback_data=f"ADMIN Skip|{chat_id}", icon_custom_emoji_id=5416117059207572332),
+            danger_button(text="", callback_data=f"ADMIN Stop|{chat_id}", icon_custom_emoji_id=5260293700088511294),
         ],
         [
             primary_button(
