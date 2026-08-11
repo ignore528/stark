@@ -22,19 +22,19 @@ def help_pannel(_, START: Union[bool, int] = None):
                 success_button(text=_["H_B_3"], callback_data="h:3", icon_custom_emoji_id=5424818078833715060),
             ],
             [
-                danger_button(text=_["H_B_6"], callback_data="h:6"),
-                primary_button(text=_["H_B_7"], callback_data="h:7"),
+                danger_button(text=_["H_B_6"], callback_data="h:6", icon_custom_emoji_id=5208607440878197365),
+                primary_button(text=_["H_B_7"], callback_data="h:7", icon_custom_emoji_id=5420323339723881652),
             ],
             [
-                success_button(text=_["H_B_10"], callback_data="h:10"),
-                danger_button(text=_["H_B_11"], callback_data="h:11"),
+                success_button(text=_["H_B_10"], callback_data="h:10", icon_custom_emoji_id=5269563867305879894),
+                danger_button(text=_["H_B_11"], callback_data="h:11", icon_custom_emoji_id=5463107823946717464),
             ],
             [
-                primary_button(text=_["H_B_12"], callback_data="h:12"),
-                success_button(text=_["H_B_13"], callback_data="h:13"),
+                primary_button(text=_["H_B_12"], callback_data="h:12", icon_custom_emoji_id=5294339927318739359),
+                success_button(text=_["H_B_13"], callback_data="h:13", icon_custom_emoji_id=6269085886177087845),
             ],
             [
-                danger_button(text=_["H_B_15"], callback_data="h:15"),
+                danger_button(text=_["H_B_15"], callback_data="h:15", icon_custom_emoji_id=5456140674028019486),
             ],
             mark,
         ]
