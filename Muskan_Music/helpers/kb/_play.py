@@ -56,11 +56,11 @@ def stream_markup_timer(_, chat_id, played, dur, autoplay_on: bool = False):
     ap_text = _["autoplay_btn_on"] if autoplay_on else _["autoplay_btn_off"]
     buttons = [
         [
-            InlineKeyboardButton(text="▷", callback_data=f"ADMIN Resume|{chat_id}"),
-            InlineKeyboardButton(text="II", callback_data=f"ADMIN Pause|{chat_id}"),
-            InlineKeyboardButton(text="↻", callback_data=f"ADMIN Replay|{chat_id}"),
-            InlineKeyboardButton(text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"),
-            InlineKeyboardButton(text="▢", callback_data=f"ADMIN Stop|{chat_id}"),
+            success_button(text="▷", callback_data=f"ADMIN Resume|{chat_id}"),
+            success_button(text="II", callback_data=f"ADMIN Pause|{chat_id}"),
+            success_button(text="↻", callback_data=f"ADMIN Replay|{chat_id}"),
+            success_button(text="‣‣I", callback_data=f"ADMIN Skip|{chat_id}"),
+            success_button(text="▢", callback_data=f"ADMIN Stop|{chat_id}"),
         ],
         [
             primary_button(
