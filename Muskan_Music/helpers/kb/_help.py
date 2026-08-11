@@ -47,7 +47,7 @@ def help_back_markup(_):
             [
                 primary_button(
                     text=_["BACK_BUTTON"],
-                    callback_data="settings_back_helper",
+                    callback_data="settings_back_helper", icon_custom_emoji_id=5816895683256390576),
                 ),
             ]
         ]
