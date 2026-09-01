@@ -23,7 +23,7 @@ call_3 : "Failed to invite {0} assistant to your chat.\n\nreason : <code>{1}</co
 call_4 : "Please wait...\n\ninviting {0} assistant to your chat..."
 call_5 : "{0} Assistant joined successfully.\n\ntrying to start stream..."
 call_6 : "» Failed to switch stream, please use /skip to change the track again."
-call_7 : "» Downloading next track from queue.\n\nplease hold on..."
+call_7 : "<emoji id=6156513311585211842>⏭️</emoji><b> Downloading next track from queue.\n\nplease hold on... <emoji id=5456140674028019486>⚡️</emoji><b>"
 call_8 : "<b>No active videochat found.</b>\n\nPlease start videochat in your group/channel and try again."
 call_9 : "<b>Assistant already in videochat.</b>\n\nif assistant is not in videochat, please send <code>/reboot</code> and play again."
 call_10 : "<b>Telegram server error</b>\n\ntelegram is having some internal problems, please try playing again or restart the videochat of your group."
