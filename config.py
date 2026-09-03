@@ -5,20 +5,20 @@ from os import getenv
 from dotenv import load_dotenv
 from pyrogram import filters
 load_dotenv()
-API_ID = int(getenv("API_ID", None))
-API_HASH = getenv("API_HASH", None)
-BOT_TOKEN = getenv("BOT_TOKEN", None)
-OWNER_USERNAME = getenv("OWNER_USERNAME","")
-BOT_USERNAME = getenv("BOT_USERNAME" , "")
-BOT_NAME = getenv("BOT_NAME" , "")
+API_ID = int(getenv("API_ID", "34766709"))
+API_HASH = getenv("API_HASH", "c70063901bc81555174389982a394f95")
+BOT_TOKEN = getenv("BOT_TOKEN", "8564248095:AAEYoF6YaYvZ5zsXb4aVjYk18p4rRVbdXV4")
+OWNER_USERNAME = getenv("OWNER_USERNAME","sexydrifter")
+BOT_USERNAME = getenv("BOT_USERNAME" , "DolbyMusicRobot")
+BOT_NAME = getenv("BOT_NAME" , "DolbyAtoms")
 ASSUSERNAME = getenv("ASSUSERNAME" , "")
 BASE_URL = getenv("BASE_URL", "http://api.babiesiq.tech")
 API_KEY = getenv("API_KEY", "ADMINBABYX_BE1B36999F84D14C6DAF231FA4768710577EC9A1")
-MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://muskan_music_db:MuskanBot2024@cluster0.mongodb.net/?appName=Muskan")
+MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://deidaraasui12_db_user:lFMu0uvvRI5Kv86r@stark.yrjtl3r.mongodb.net/?appName=Stark")
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 17000))
 _logger_id_raw = getenv("LOGGER_ID", "0")
-LOGGER_ID = int(_logger_id_raw) if _logger_id_raw and _logger_id_raw.lstrip("-").isdigit() else 0
-OWNER_ID = int(getenv("OWNER_ID", None))
+LOGGER_ID = int(_logger_id_raw) if _logger_id_raw and _logger_id_raw.lstrip("-1002488365579").isdigit() else 0
+OWNER_ID = int(getenv("OWNER_ID", "7732395523"))
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 UPSTREAM_REPO = getenv(
@@ -40,7 +40,7 @@ SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "709e1a2969664491b582008
 PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", 25))
 TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", "5242880000"))
 TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "5242880000"))
-STRING1 = getenv("STRING_SESSION", "")
+STRING1 = getenv("STRING_SESSION", "AQISf3UAHxJ2ld_srxRWoB9XD7IPGHoqUvpkiNllSexSx06WtSlc_OzqhEC3dtumFwmekChIv_Nhz4pT4uCLLvdq0PW6fOyTw2-nl5J6tyOXwYyTWm6D6gxIO_1i9CXsHFwJMGH90kqwTR_kW44izEBd2UF2M9urNsAcW3ncKo7qWweOsDQzOA_64DY6H-OLQhVcsddX5pArwA1q9KvwKOOQ6NX2Eu3NiG7z8eVxFS7pQpffu5hpK4nkJ_9hRf3yLKh427OXWfxLWJhSm7v_3YR7SrrPm97Mt6l4P9sFzZPfUqDf8bApZU7CPsX558vMHoItvzpopkNuQQdj5OJVlq9B2bMBzAAAAAHfzIkMAA")
 STRING2 = getenv("STRING_SESSION2", "")
 STRING3 = getenv("STRING_SESSION3", "")
 STRING4 = getenv("STRING_SESSION4", "")
